@@ -1,0 +1,10 @@
+project_id = "obbgdsgqxbvctsuohehm"
+
+[functions.sarvam-tts]
+verify_jwt = false
+
+[functions.text-to-speech]
+verify_jwt = false
+
+[functions.college-chat]
+verify_jwt = false

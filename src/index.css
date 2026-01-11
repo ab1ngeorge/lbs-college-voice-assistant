@@ -1,0 +1,283 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Malayalam Voice Assistant - Kerala-Inspired Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* Kerala-inspired color palette */
+    --background: 45 30% 97%;
+    --foreground: 160 25% 15%;
+
+    --card: 45 25% 95%;
+    --card-foreground: 160 25% 15%;
+
+    --popover: 45 25% 95%;
+    --popover-foreground: 160 25% 15%;
+
+    /* Deep emerald green - Kerala lush greenery */
+    --primary: 158 45% 25%;
+    --primary-foreground: 45 30% 97%;
+
+    /* Warm cream secondary */
+    --secondary: 42 35% 88%;
+    --secondary-foreground: 160 25% 15%;
+
+    --muted: 45 20% 90%;
+    --muted-foreground: 160 15% 45%;
+
+    /* Golden accent - Kerala temples/art */
+    --accent: 38 75% 55%;
+    --accent-foreground: 160 25% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 45 30% 97%;
+
+    --border: 45 20% 85%;
+    --input: 45 20% 85%;
+    --ring: 158 45% 25%;
+
+    --radius: 1rem;
+
+    /* Custom Kerala colors */
+    --kerala-green: 158 45% 25%;
+    --kerala-green-light: 158 40% 35%;
+    --kerala-green-dark: 158 50% 18%;
+    --kerala-gold: 38 75% 55%;
+    --kerala-gold-light: 42 85% 65%;
+    --kerala-cream: 45 30% 97%;
+    --kerala-terracotta: 15 55% 45%;
+
+    /* Voice assistant specific */
+    --voice-active: 158 60% 45%;
+    --voice-listening: 38 80% 60%;
+    --voice-speaking: 158 45% 25%;
+
+    /* Gradients */
+    --gradient-kerala: linear-gradient(135deg, hsl(158 45% 25%), hsl(158 40% 35%));
+    --gradient-gold: linear-gradient(135deg, hsl(38 75% 55%), hsl(42 85% 65%));
+    --gradient-hero: linear-gradient(180deg, hsl(45 30% 97%) 0%, hsl(42 35% 92%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(45 25% 95%), hsl(45 30% 92%));
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(158 45% 25% / 0.08);
+    --shadow-md: 0 4px 20px hsl(158 45% 25% / 0.12);
+    --shadow-lg: 0 8px 40px hsl(158 45% 25% / 0.15);
+    --shadow-glow: 0 0 40px hsl(38 75% 55% / 0.3);
+
+    --sidebar-background: 45 25% 95%;
+    --sidebar-foreground: 160 25% 15%;
+    --sidebar-primary: 158 45% 25%;
+    --sidebar-primary-foreground: 45 30% 97%;
+    --sidebar-accent: 42 35% 88%;
+    --sidebar-accent-foreground: 160 25% 15%;
+    --sidebar-border: 45 20% 85%;
+    --sidebar-ring: 158 45% 25%;
+  }
+
+  .dark {
+    --background: 160 30% 8%;
+    --foreground: 45 30% 95%;
+
+    --card: 160 25% 12%;
+    --card-foreground: 45 30% 95%;
+
+    --popover: 160 25% 12%;
+    --popover-foreground: 45 30% 95%;
+
+    --primary: 158 50% 45%;
+    --primary-foreground: 160 30% 8%;
+
+    --secondary: 160 20% 18%;
+    --secondary-foreground: 45 30% 95%;
+
+    --muted: 160 20% 18%;
+    --muted-foreground: 45 20% 65%;
+
+    --accent: 38 70% 50%;
+    --accent-foreground: 160 30% 8%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 45 30% 95%;
+
+    --border: 160 20% 20%;
+    --input: 160 20% 20%;
+    --ring: 158 50% 45%;
+
+    --kerala-green: 158 50% 45%;
+    --kerala-green-light: 158 45% 55%;
+    --kerala-green-dark: 158 55% 35%;
+
+    --sidebar-background: 160 25% 10%;
+    --sidebar-foreground: 45 30% 95%;
+    --sidebar-primary: 158 50% 45%;
+    --sidebar-primary-foreground: 160 30% 8%;
+    --sidebar-accent: 160 20% 18%;
+    --sidebar-accent-foreground: 45 30% 95%;
+    --sidebar-border: 160 20% 20%;
+    --sidebar-ring: 158 50% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Outfit', 'Noto Sans Malayalam', sans-serif;
+  }
+
+  /* Malayalam text support */
+  .malayalam {
+    font-family: 'Noto Sans Malayalam', sans-serif;
+  }
+}
+
+@layer components {
+  /* Voice button animations */
+  .voice-pulse {
+    animation: voice-pulse 2s ease-in-out infinite;
+  }
+
+  .voice-listening {
+    animation: voice-listening 1.5s ease-in-out infinite;
+  }
+
+  .voice-speaking {
+    animation: voice-speaking 0.8s ease-in-out infinite;
+  }
+
+  /* Wave animation for audio visualization */
+  .wave-bar {
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+  /* Glass morphism card */
+  .glass-card {
+    @apply backdrop-blur-md bg-card/80 border border-border/50;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Kerala pattern overlay */
+  .kerala-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c4a442' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Hero section gradient */
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+
+  /* Language indicator badge */
+  .lang-badge {
+    @apply px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .lang-malayalam {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .lang-manglish {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  .lang-english {
+    @apply bg-secondary text-secondary-foreground border border-border;
+  }
+}
+
+@layer utilities {
+  /* Animations */
+  @keyframes voice-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 hsl(var(--kerala-green) / 0.4);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 20px hsl(var(--kerala-green) / 0);
+    }
+  }
+
+  @keyframes voice-listening {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 hsl(var(--kerala-gold) / 0.5);
+    }
+    50% {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 25px hsl(var(--kerala-gold) / 0);
+    }
+  }
+
+  @keyframes voice-speaking {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+  }
+
+  @keyframes wave {
+    0%, 100% {
+      transform: scaleY(0.5);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  /* Gradient text */
+  .text-gradient-kerala {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-kerala);
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-gold);
+  }
+}
