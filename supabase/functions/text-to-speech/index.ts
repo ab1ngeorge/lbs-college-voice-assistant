@@ -12,7 +12,7 @@ serve(async (req) => {
 
   try {
     const { text, voiceId } = await req.json();
-    
+
     if (!text) {
       throw new Error('Text is required');
     }
@@ -24,9 +24,6 @@ serve(async (req) => {
 
     console.log('Generating speech for text:', text.substring(0, 100) + '...');
 
-    // Detect if Malayalam text (Unicode range for Malayalam)
-    const hasMalayalam = /[\u0D00-\u0D7F]/.test(text);
-    
     // Use alloy voice - works well with multiple languages
     const selectedVoice = voiceId || 'alloy';
 
@@ -51,7 +48,7 @@ serve(async (req) => {
     }
 
     const audioBuffer = await response.arrayBuffer();
-    
+
     // Encode to base64 properly using Deno's built-in
     const base64Audio = btoa(
       Array.from(new Uint8Array(audioBuffer))

@@ -34,9 +34,8 @@ const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, location
     const parts = text.split(urlRegex);
 
     return parts.map((part, index) => {
-      if (urlRegex.test(part)) {
-        // Reset regex lastIndex
-        urlRegex.lastIndex = 0;
+      // Use a fresh regex test to avoid lastIndex state issues with global regex
+      if (/^https?:\/\/[^\s]+$/i.test(part)) {
         return (
           <a
             key={index}
