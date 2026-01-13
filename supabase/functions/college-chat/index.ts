@@ -1,3 +1,5 @@
+// DEPLOYMENT TIMESTAMP: 2026-01-14T00:26:00+05:30 - Force fresh deployment
+// This function returns correct data: CSE HOD = Dr. Manoj Kumar G
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -1611,6 +1613,123 @@ serve(async (req) => {
     }
 
     console.log('Processing message:', message.substring(0, 100));
+
+    // ============ IMMEDIATE DIRECT ANSWERS - HIGHEST PRIORITY ============
+    // These return IMMEDIATELY before any other processing
+    const msgLower = message.toLowerCase();
+
+    // CSE HOD - immediate return
+    if ((msgLower.includes('cse') || msgLower.includes('computer')) &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE CSE HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The Head of Department (HOD) of Computer Science and Engineering (CSE) is Dr. Manoj Kumar G. He is a Professor in the department. Phone: 8547458075, Email: manojkumar@lbscek.ac.in',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // ECE HOD - immediate return
+    if ((msgLower.includes('ece') || msgLower.includes('electronics')) &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE ECE HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The HOD of Electronics and Communication Engineering (ECE) is Dr. Mary Reena K E. She is a Professor in the department.',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // EEE HOD - immediate return
+    if ((msgLower.includes('eee') || msgLower.includes('electrical')) &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE EEE HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The HOD of Electrical and Electronics Engineering (EEE) is Prof. Jayakumar M. He is an Associate Professor.',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Mechanical HOD - immediate return
+    if ((msgLower.includes('mechanical') || msgLower.includes('mech')) &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE ME HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The HOD of Mechanical Engineering (ME) is Dr. Manoj Kumar C V. He is an Associate Professor.',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Civil HOD - immediate return
+    if (msgLower.includes('civil') &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE CIVIL HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The HOD of Civil Engineering (CE) is Dr. Anjali M S. She is an Associate Professor.',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // IT HOD - immediate return
+    if ((msgLower.includes('it ') || msgLower.includes('information technology')) &&
+      (msgLower.includes('hod') || msgLower.includes('head') || msgLower.includes('name'))) {
+      console.log('🎯 IMMEDIATE IT HOD ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The HOD of Information Technology (IT) is Dr. Anver S R. He is a Professor.',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Principal - immediate return
+    if (msgLower.includes('principal')) {
+      console.log('🎯 IMMEDIATE PRINCIPAL ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'The Principal of LBS College of Engineering is Dr. Mohammad Shekoor T. He is from the Mechanical Engineering department. Phone: 04994-250290, Email: principal@lbscek.ac.in',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // All HODs query
+    if (msgLower.includes('hod') && !msgLower.includes('cse') && !msgLower.includes('ece') &&
+      !msgLower.includes('eee') && !msgLower.includes('mechanical') && !msgLower.includes('civil') &&
+      !msgLower.includes('it ') && !msgLower.includes('computer')) {
+      console.log('🎯 IMMEDIATE ALL HODs ANSWER');
+      return new Response(
+        JSON.stringify({
+          response: 'Here are all the Heads of Departments (HODs) at LBS College of Engineering:\n\n• CSE HOD: Dr. Manoj Kumar G (Professor)\n• IT HOD: Dr. Anver S R (Professor)\n• ECE HOD: Dr. Mary Reena K E (Professor)\n• EEE HOD: Prof. Jayakumar M (Associate Professor)\n• Mechanical HOD: Dr. Manoj Kumar C V (Associate Professor)\n• Civil HOD: Dr. Anjali M S (Associate Professor)\n• Applied Science HOD: Prof. Vineesh Kumar K V (Assistant Professor)\n\nWhich department would you like more details about?',
+          detectedLanguage: 'english',
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    // ============ END IMMEDIATE DIRECT ANSWERS ============
 
     // DIRECT ANSWER FUNCTION - Check for common queries and return EXACT database answers
     // This bypasses AI to prevent hallucination for critical queries
