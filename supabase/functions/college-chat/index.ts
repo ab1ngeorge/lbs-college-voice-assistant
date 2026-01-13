@@ -1174,8 +1174,67 @@ const formatFAQData = () => {
     const facts = Object.entries(faq.answer_facts)
       .map(([key, value]) => `- ${key}: ${typeof value === 'object' ? JSON.stringify(value) : value}`)
       .join('\n');
-    return `[Topic: ${faq.tags.join(', ')}]\n${facts}`;
-  }).join('\n\n');
+    return `=== FAQ ID: ${faq.id} ===\n[SEARCH TAGS: ${faq.tags.join(', ')}]\n${facts}`;
+  }).join('\n\n---\n\n');
+};
+
+// Find relevant FAQs based on user message keywords
+const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
+  const lowerMessage = message.toLowerCase();
+  const matchedFAQs: { faq: typeof COLLEGE_FAQ_DATA[0]; score: number }[] = [];
+
+  for (const faq of COLLEGE_FAQ_DATA) {
+    let score = 0;
+
+    // Check tags for matches
+    for (const tag of faq.tags) {
+      if (lowerMessage.includes(tag.toLowerCase())) {
+        score += 10;
+      }
+    }
+
+    // Check answer_facts keys for matches
+    for (const key of Object.keys(faq.answer_facts)) {
+      if (lowerMessage.includes(key.toLowerCase())) {
+        score += 5;
+      }
+    }
+
+    // Check answer_facts values for matches (for names, numbers, etc.)
+    for (const value of Object.values(faq.answer_facts)) {
+      if (typeof value === 'string') {
+        const words = value.toLowerCase().split(/\s+/);
+        for (const word of words) {
+          if (word.length > 3 && lowerMessage.includes(word)) {
+            score += 2;
+          }
+        }
+      }
+    }
+
+    if (score > 0) {
+      matchedFAQs.push({ faq, score });
+    }
+  }
+
+  // Sort by score and return top matches
+  return matchedFAQs
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+    .map(m => m.faq);
+};
+
+// Format relevant FAQs for the AI context
+const formatRelevantFAQs = (faqs: typeof COLLEGE_FAQ_DATA): string => {
+  if (faqs.length === 0) return '';
+
+  return '\n\n🎯 MOST RELEVANT DATA FOR THIS QUERY (USE THIS FIRST!):\n' +
+    faqs.map(faq => {
+      const facts = Object.entries(faq.answer_facts)
+        .map(([key, value]) => `  • ${key}: ${typeof value === 'object' ? JSON.stringify(value) : value}`)
+        .join('\n');
+      return `\n[${faq.tags.slice(0, 3).join(', ')}]\n${facts}`;
+    }).join('\n---\n');
 };
 
 const COLLEGE_CONTEXT = `
@@ -1480,11 +1539,22 @@ DETAILED COLLEGE INFORMATION (VERIFIED DATABASE):`
       console.log('Added live website data to context');
     }
 
+    // Find and format relevant FAQs based on the user's message
+    const relevantFAQs = findRelevantFAQs(message);
+    const relevantFAQsContext = formatRelevantFAQs(relevantFAQs);
+
+    console.log(`Found ${relevantFAQs.length} relevant FAQs for query:`, message.substring(0, 50));
+
     // Build conversation messages with better context
+    // Add the relevant FAQs as a special instruction right before the user message
+    const relevantDataInstruction = relevantFAQs.length > 0
+      ? `\n\n[SYSTEM NOTE: Based on the user's query, here is the MOST RELEVANT data from our database. USE THIS TO ANSWER:${relevantFAQsContext}]\n\n`
+      : '';
+
     const messages = [
       { role: 'system', content: dynamicContext },
       ...(conversationHistory || []).slice(-10),
-      { role: 'user', content: message }
+      { role: 'user', content: relevantDataInstruction + message }
     ];
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
@@ -1496,7 +1566,7 @@ DETAILED COLLEGE INFORMATION (VERIFIED DATABASE):`
       body: JSON.stringify({
         model: 'google/gemini-2.5-flash',
         messages,
-        temperature: 0.8,
+        temperature: 0.3,  // Lower temperature for more factual, consistent answers
         max_tokens: 600,
       }),
     });
