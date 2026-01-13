@@ -14,9 +14,10 @@ export interface GeolocationState {
 }
 
 // LBS College coordinates (Main Entrance) - Kasaragod, Kerala
+// Source: College FAQ Database - GPS Coordinates: 12.5960° N, 75.0300° E
 export const COLLEGE_COORDINATES: Coordinates = {
-  latitude: 12.4760,
-  longitude: 75.0312,
+  latitude: 12.5960,
+  longitude: 75.0300,
 };
 
 // Main college Google Maps link (verified)
@@ -33,7 +34,7 @@ export const CAMPUS_LOCATIONS: Record<string, {
   // 🏛️ Main Campus & Admin
   'main_entrance': {
     name: 'LBS College of Engineering (Main Entrance)',
-    coordinates: { latitude: 12.4760, longitude: 75.0312 },
+    coordinates: { latitude: 12.5960, longitude: 75.0300 },
     description: 'Main entrance of LBS College of Engineering',
     mapsLink: 'https://maps.app.goo.gl/MgJURkMksGx7neiZ8'
   },

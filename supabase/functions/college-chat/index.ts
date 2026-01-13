@@ -1178,25 +1178,71 @@ const formatFAQData = () => {
   }).join('\n\n---\n\n');
 };
 
-// Find relevant FAQs based on user message keywords
+// Common Manglish synonyms/variations for better matching
+const MANGLISH_SYNONYMS: Record<string, string[]> = {
+  'hod': ['hod', 'head', 'department head', 'vibhagam medhavi', 'medhavi', 'head of department'],
+  'dean': ['dean', 'academic dean', 'student affairs dean', 'deean', 'diaan'],
+  'principal': ['principal', 'head', 'prinsipal', 'college head', 'princi'],
+  'fee': ['fee', 'fees', 'panam', 'ethra', 'charge', 'cost', 'phee', 'fii'],
+  'hostel': ['hostel', 'boarding', 'accommodation', 'thamasu', 'stay', 'room'],
+  'bus': ['bus', 'transport', 'vehicle', 'route', 'timing'],
+  'library': ['library', 'book', 'read', 'pustakam', 'librerry'],
+  'canteen': ['canteen', 'food', 'eat', 'lunch', 'bhakshyam', 'cafe', 'mess'],
+  'placement': ['placement', 'job', 'campus', 'recruit', 'career', 'company'],
+  'admission': ['admission', 'apply', 'join', 'enter', 'keam', 'counselling'],
+  'cse': ['cse', 'computer', 'cs', 'software', 'coding', 'programming', 'it'],
+  'ece': ['ece', 'electronics', 'communication', 'ec'],
+  'eee': ['eee', 'electrical', 'ee'],
+  'mechanical': ['mechanical', 'me', 'mech', 'workshop'],
+  'civil': ['civil', 'ce', 'construction', 'building'],
+  'faculty': ['faculty', 'teacher', 'professor', 'staff', 'sir', 'madam'],
+  'club': ['club', 'clubs', 'association', 'society', 'iedc'],
+  'location': ['location', 'address', 'where', 'evide', 'evideyanu', 'place', 'venue'],
+  'timing': ['timing', 'time', 'schedule', 'hours', 'when', 'eppol', 'samayam'],
+  'contact': ['contact', 'phone', 'call', 'number', 'email', 'vilikku'],
+};
+
+// Find relevant FAQs based on user message keywords with improved matching
 const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
   const lowerMessage = message.toLowerCase();
+  const messageWords = lowerMessage.split(/\s+/);
   const matchedFAQs: { faq: typeof COLLEGE_FAQ_DATA[0]; score: number }[] = [];
+
+  // Expand message with synonyms for better matching
+  let expandedMessage = lowerMessage;
+  for (const [key, synonyms] of Object.entries(MANGLISH_SYNONYMS)) {
+    for (const synonym of synonyms) {
+      if (lowerMessage.includes(synonym)) {
+        expandedMessage += ' ' + key + ' ' + synonyms.join(' ');
+        break;
+      }
+    }
+  }
 
   for (const faq of COLLEGE_FAQ_DATA) {
     let score = 0;
 
-    // Check tags for matches
+    // Check tags for matches (high priority)
     for (const tag of faq.tags) {
-      if (lowerMessage.includes(tag.toLowerCase())) {
-        score += 10;
+      const tagLower = tag.toLowerCase();
+      // Exact match in message
+      if (expandedMessage.includes(tagLower)) {
+        score += 15;
+      }
+      // Word-level matching for partial matches
+      const tagWords = tagLower.split(/\s+/);
+      for (const tagWord of tagWords) {
+        if (tagWord.length > 2 && messageWords.some(w => w.includes(tagWord) || tagWord.includes(w))) {
+          score += 5;
+        }
       }
     }
 
-    // Check answer_facts keys for matches
+    // Check answer_facts keys for matches (medium priority)
     for (const key of Object.keys(faq.answer_facts)) {
-      if (lowerMessage.includes(key.toLowerCase())) {
-        score += 5;
+      const keyLower = key.toLowerCase();
+      if (expandedMessage.includes(keyLower)) {
+        score += 8;
       }
     }
 
@@ -1205,8 +1251,9 @@ const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
       if (typeof value === 'string') {
         const words = value.toLowerCase().split(/\s+/);
         for (const word of words) {
-          if (word.length > 3 && lowerMessage.includes(word)) {
-            score += 2;
+          // Match longer words (names, technical terms)
+          if (word.length > 3 && expandedMessage.includes(word)) {
+            score += 3;
           }
         }
       }
@@ -1218,7 +1265,9 @@ const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
   }
 
   // Sort by score and return top matches
+  // Only return FAQs with significant matches (score > 5)
   return matchedFAQs
+    .filter(m => m.score > 5)
     .sort((a, b) => b.score - a.score)
     .slice(0, 10)
     .map(m => m.faq);
@@ -1264,6 +1313,12 @@ YOU ARE A DATABASE LOOKUP ASSISTANT. Your ONLY job is to find information in the
 - If you provide information NOT in the database, you have FAILED
 - If you make up a phone number, name, or fee amount, you have FAILED
 - When in doubt, say "I don't have that information" rather than guess
+
+🚫 CRITICAL - NAMES MUST BE EXACT:
+- The ONLY names you can mention are those EXPLICITLY listed in the database below
+- If you mention ANY name not written in the database, you have FAILED
+- DO NOT invent or guess faculty names, HOD names, or staff names
+- If asked about someone not in the database, say: "I don't have information about that person in my database. Please contact the college office at +91-4994-256300"
 
 4. EXPLICIT ANSWERS IN DATABASE (SEARCH FOR THESE):
    - അക്കാദമിക് ഡീൻ / Academic Dean = Dr. Praveen Kumar K (LOOK FOR: "dean", "അക്കാദമിക് ഡീൻ")
@@ -1552,8 +1607,8 @@ ${websiteData}
 
     // Build conversation messages with database data as primary source
     const relevantDataInstruction = relevantFAQs.length > 0
-      ? `\n\n[SYSTEM NOTE: Based on the user's query, here is the MOST RELEVANT data from our VERIFIED DATABASE. USE THIS TO ANSWER - this is the primary source of truth:${relevantFAQsContext}]\n\n`
-      : '';
+      ? `\n\n[CRITICAL INSTRUCTION: ANSWER ONLY FROM THIS DATABASE DATA. DO NOT ADD ANY INFORMATION NOT LISTED HERE. If the answer is not in this data, say "I don't have that information."${relevantFAQsContext}]\n\n`
+      : `\n\n[WARNING: No matching data found in database for this query. You MUST say "I don't have that specific information in my database. Please contact the college office at +91-4994-256300 or visit https://lbscek.ac.in" - DO NOT MAKE UP AN ANSWER.]\n\n`;
 
     const messages = [
       { role: 'system', content: dynamicContext },
@@ -1570,7 +1625,8 @@ ${websiteData}
       body: JSON.stringify({
         model: 'google/gemini-2.5-flash',
         messages,
-        temperature: 0.1,  // Very low temperature for strict factual answers - no creativity/hallucination
+        temperature: 0,  // Zero temperature for fully deterministic, factual answers - no hallucination
+        top_p: 0.1,  // Very restrictive sampling for strict factual responses
         max_tokens: 600,
       }),
     });
