@@ -38,6 +38,11 @@ const isLocationQuery = (text: string): boolean => {
     'navigate to', 'directions to', 'find the', 'take me to', 'go to',
     'reach the', 'get to', 'way to', 'path to', 'route to',
     'evide', 'evideyanu', 'evidunnu', 'എവിടെ', 'എങ്ങനെ', // Malayalam/Manglish
+    // College location specific keywords
+    'lbs location', 'college location', 'campus location',
+    'lbs address', 'college address', 'campus address',
+    'locate lbs', 'locate college', 'locate campus',
+    'lbs college location', 'lbsce location',
   ];
   const lowerText = text.toLowerCase();
   return locationKeywords.some(keyword => lowerText.includes(keyword));

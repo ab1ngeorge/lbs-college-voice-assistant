@@ -19,56 +19,56 @@ const categories = [
         id: "academics",
         label: "Academics",
         icon: GraduationCap,
-        color: "bg-blue-500/10 text-blue-600 hover:bg-blue-500/20",
+        color: "bg-blue-500/10 text-blue-600 hover:bg-blue-500/20 dark:bg-blue-500/20 dark:text-blue-400 dark:hover:bg-blue-500/30",
         question: "What courses are offered at LBS College?"
     },
     {
         id: "fees",
         label: "Fees",
         icon: DollarSign,
-        color: "bg-green-500/10 text-green-600 hover:bg-green-500/20",
+        color: "bg-green-500/10 text-green-600 hover:bg-green-500/20 dark:bg-green-500/20 dark:text-green-400 dark:hover:bg-green-500/30",
         question: "What is the fee structure for B.Tech?"
     },
     {
         id: "bus",
         label: "Bus Routes",
         icon: Bus,
-        color: "bg-orange-500/10 text-orange-600 hover:bg-orange-500/20",
+        color: "bg-orange-500/10 text-orange-600 hover:bg-orange-500/20 dark:bg-orange-500/20 dark:text-orange-400 dark:hover:bg-orange-500/30",
         question: "What are the college bus routes and timings?"
     },
     {
         id: "faculty",
         label: "Faculty",
         icon: Users,
-        color: "bg-purple-500/10 text-purple-600 hover:bg-purple-500/20",
+        color: "bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 dark:bg-purple-500/20 dark:text-purple-400 dark:hover:bg-purple-500/30",
         question: "Who are the faculty members in CSE department?"
     },
     {
         id: "clubs",
         label: "Clubs",
         icon: Building2,
-        color: "bg-pink-500/10 text-pink-600 hover:bg-pink-500/20",
+        color: "bg-pink-500/10 text-pink-600 hover:bg-pink-500/20 dark:bg-pink-500/20 dark:text-pink-400 dark:hover:bg-pink-500/30",
         question: "What clubs are available in the college?"
     },
     {
         id: "locations",
         label: "Campus",
         icon: MapPin,
-        color: "bg-teal-500/10 text-teal-600 hover:bg-teal-500/20",
+        color: "bg-teal-500/10 text-teal-600 hover:bg-teal-500/20 dark:bg-teal-500/20 dark:text-teal-400 dark:hover:bg-teal-500/30",
         question: "Where is the library located?"
     },
     {
         id: "library",
         label: "Library",
         icon: BookOpen,
-        color: "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20",
+        color: "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 dark:bg-amber-500/20 dark:text-amber-400 dark:hover:bg-amber-500/30",
         question: "What are the library timings?"
     },
     {
         id: "hostel",
         label: "Hostel",
         icon: Clock,
-        color: "bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20",
+        color: "bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20 dark:bg-indigo-500/20 dark:text-indigo-400 dark:hover:bg-indigo-500/30",
         question: "What are the hostel facilities and fees?"
     },
 ];

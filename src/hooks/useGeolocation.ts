@@ -300,6 +300,19 @@ export const searchCampusLocation = (query: string): { key: string; location: ty
     'electrical': 'electrical_control_room',
     'control room': 'electrical_control_room',
     'power': 'electrical_control_room',
+    // LBS College general location queries
+    'lbs college': 'main_entrance',
+    'lbsce': 'main_entrance',
+    'lbs location': 'main_entrance',
+    'college location': 'main_entrance',
+    'campus location': 'main_entrance',
+    'lbs campus': 'main_entrance',
+    'lbs engineering': 'main_entrance',
+    'engineering college': 'main_entrance',
+    'college address': 'main_entrance',
+    'campus address': 'main_entrance',
+    'lbs address': 'main_entrance',
+    'college of engineering': 'main_entrance',
   };
 
   for (const [keyword, locationKey] of Object.entries(keywordMap)) {
