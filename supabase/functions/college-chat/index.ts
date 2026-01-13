@@ -908,6 +908,87 @@ const COLLEGE_FAQ_DATA = [
       "Malayalam_Note": "കാസർഗോഡ് സൈഡിൽ നിന്ന് രാവിലെ 8:10 മുതൽ 9:05 വരെ ബസ് പിക്കപ്പ് ഉണ്ട്. സ്റ്റുഡന്റ് ഫീസ് ₹3,420 മുതൽ ₹11,910 വരെ",
       "Manglish_Note": "Kasaragod side il ninnu ravile 8:10 muthal 9:05 vare bus pickup und. Student fee ₹3,420 muthal ₹11,910 vare aanu"
     }
+  },
+  {
+    "id": 83,
+    "tags": ["fee structure", "btech fee", "college fee", "tuition fee", "fees 2025", "fee ethra", "ഫീസ്", "fee structure 2025-26"],
+    "answer_facts": {
+      "B.Tech Regular Merit Seat": "₹56,870 (Net Fee Payable to College, includes KTU fees)",
+      "B.Tech Regular High Fee Seat": "₹88,370",
+      "B.Tech Regular SC/ST/OEC": "₹1,000",
+      "B.Tech Regular Fee Waiver (FW)": "₹18,620",
+      "B.Tech LET Merit": "₹49,200 + KTU ₹7,670",
+      "B.Tech LET Fee Waiver": "₹10,950 + KTU ₹7,670",
+      "B.Tech LET SC/ST/OEC": "₹1,000 (KTU fees Nil)",
+      "M.Tech Total": "₹44,880 (College ₹37,950 + KTU ₹6,930)",
+      "Academic Year": "2025-26",
+      "Malayalam": "B.Tech Merit സീറ്റിന് ₹56,870 ആണ് ഫീസ്. SC/ST/OEC ക്ക് ₹1,000 മാത്രം. M.Tech ന് ₹44,880 ആണ്.",
+      "Manglish": "B.Tech Merit seat nu ₹56,870 aanu fee. SC/ST/OEC kku ₹1,000 mathram. M.Tech nu ₹44,880 aanu."
+    }
+  },
+  {
+    "id": 84,
+    "tags": ["miscellaneous fee", "pta fee", "placement fee", "union fee", "other fees"],
+    "answer_facts": {
+      "PTA Membership": "₹5,000",
+      "Department Association": "₹1,000",
+      "Career Guidance & Placement": "₹500",
+      "Co-operative Society (Kit + ID)": "₹1,650",
+      "Sports Development Fund": "₹250",
+      "Series Examination Fee": "₹200",
+      "College Union Fee": "₹1,200",
+      "Total Miscellaneous": "₹9,800",
+      "Note": "Same for B.Tech Regular and Lateral Entry students",
+      "Malayalam": "മിസലേനിയസ് ഫീസ് ആകെ ₹9,800 ആണ്. PTA ₹5,000, Union ₹1,200, Placement ₹500 ഉൾപ്പെടെ.",
+      "Manglish": "Miscellaneous fee total ₹9,800 aanu. PTA ₹5,000, Union ₹1,200, Placement ₹500 okke included aanu."
+    }
+  },
+  {
+    "id": 85,
+    "tags": ["hostel fee", "hostel charges", "accommodation fee", "hostel ethra"],
+    "answer_facts": {
+      "General Category": "₹9,250 per year",
+      "SC/ST/OEC Category": "₹2,250 per year",
+      "Note": "Hostel fees are optional, same for Regular and LET students",
+      "Malayalam": "ഹോസ്റ്റൽ ഫീസ് ജനറൽ കാറ്റഗറിക്ക് ₹9,250, SC/ST/OEC ക്ക് ₹2,250 ആണ്.",
+      "Manglish": "Hostel fee general category kku ₹9,250, SC/ST/OEC kku ₹2,250 aanu."
+    }
+  },
+  {
+    "id": 86,
+    "tags": ["mtech fee", "pg fee", "postgraduate fee", "mtech structure"],
+    "answer_facts": {
+      "Tuition Fee": "₹24,000",
+      "Admission Fee": "₹1,000",
+      "Special Fee": "₹350",
+      "Caution Deposit": "₹5,000",
+      "Establishment Charges": "₹2,000",
+      "Library Fees": "₹1,000",
+      "Professional Bodies Fees": "₹1,000",
+      "Online Academic Management": "₹450",
+      "College Fees Subtotal": "₹37,950",
+      "KTU Student Administration Fee": "₹1,050",
+      "KTU Arts & Sports Fee": "₹530",
+      "KTU Examination Fee": "₹4,300",
+      "KTU Affiliation Fee": "₹1,050",
+      "KTU Fees Subtotal": "₹6,930",
+      "Total M.Tech Fee": "₹44,880",
+      "Malayalam": "M.Tech ന് ആകെ ₹44,880 ആണ് ഫീസ്. കോളേജ് ഫീസ് ₹37,950, KTU ഫീസ് ₹6,930.",
+      "Manglish": "M.Tech nu total ₹44,880 aanu fee. College fee ₹37,950, KTU fee ₹6,930."
+    }
+  },
+  {
+    "id": 87,
+    "tags": ["fee comparison", "minimum fee", "fee summary", "which fee less"],
+    "answer_facts": {
+      "B.Tech Regular Merit": "₹56,870 (Minimum for Regular)",
+      "B.Tech LET Merit": "₹49,200 (Minimum for Lateral Entry)",
+      "M.Tech": "₹44,880",
+      "Lowest Fee": "SC/ST/OEC students pay only ₹1,000 for B.Tech",
+      "Academic Year": "2025-26",
+      "Malayalam": "B.Tech Merit ₹56,870, LET Merit ₹49,200, M.Tech ₹44,880. SC/ST/OEC ക്ക് ₹1,000 മാത്രം.",
+      "Manglish": "B.Tech Merit ₹56,870, LET Merit ₹49,200, M.Tech ₹44,880. SC/ST/OEC kku ₹1,000 mathram."
+    }
   }
 ];
 
