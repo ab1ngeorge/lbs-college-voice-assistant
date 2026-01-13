@@ -19,21 +19,22 @@ export const COLLEGE_COORDINATES: Coordinates = {
   longitude: 76.6141,
 };
 
-// Main college Google Maps link
-export const COLLEGE_MAPS_LINK = 'https://maps.app.goo.gl/ZGm4R6fiM6KgbfH97';
+// Main college Google Maps link (verified)
+export const COLLEGE_MAPS_LINK = 'https://maps.app.goo.gl/MgJURkMksGx7neiZ8';
 
 // Campus locations with verified Google Maps links
-export const CAMPUS_LOCATIONS: Record<string, { 
-  name: string; 
-  coordinates: Coordinates; 
+export const CAMPUS_LOCATIONS: Record<string, {
+  name: string;
+  coordinates: Coordinates;
   description: string;
   mapsLink: string;
 }> = {
+  // 🏛️ Main Campus & Admin
   'main_entrance': {
     name: 'LBS College of Engineering (Main Entrance)',
     coordinates: { latitude: 8.8932, longitude: 76.6141 },
     description: 'Main entrance of LBS College of Engineering',
-    mapsLink: 'https://maps.app.goo.gl/ZGm4R6fiM6KgbfH97'
+    mapsLink: 'https://maps.app.goo.gl/MgJURkMksGx7neiZ8'
   },
   'academic_departments': {
     name: 'Academic Departments (General Area)',
@@ -45,19 +46,21 @@ export const CAMPUS_LOCATIONS: Record<string, {
     name: 'Dept. Of Mechanical Engineering',
     coordinates: { latitude: 8.8938, longitude: 76.6148 },
     description: 'Department of Mechanical Engineering',
-    mapsLink: 'https://maps.app.goo.gl/Yas8hpFy3kNim1xD8'
+    mapsLink: 'https://maps.app.goo.gl/ZpHNZt62DzfHEMWWA'
   },
   'cse_department': {
     name: 'Computer Science & IT Department Building',
     coordinates: { latitude: 8.8940, longitude: 76.6150 },
     description: 'Department of Computer Science and Information Technology',
-    mapsLink: 'https://maps.app.goo.gl/DbwYQ6b984VTGDjm6'
+    mapsLink: 'https://maps.app.goo.gl/y7epqn9H51K4fBBJ8'
   },
+
+  // 🔬 Academic Facilities
   'library': {
     name: 'Central Library',
     coordinates: { latitude: 8.8942, longitude: 76.6143 },
     description: 'Central library with reading rooms and digital resources',
-    mapsLink: 'https://maps.app.goo.gl/fh6Z8TEsomfuoFbJ9'
+    mapsLink: 'https://maps.app.goo.gl/uNePErUh3hs4kUWP9'
   },
   'fab_lab': {
     name: 'Campus Fab Lab',
@@ -69,7 +72,7 @@ export const CAMPUS_LOCATIONS: Record<string, {
     name: 'Computer Lab',
     coordinates: { latitude: 8.8939, longitude: 76.6149 },
     description: 'Main computer laboratory',
-    mapsLink: 'https://maps.app.goo.gl/6pasZGBNrC3opwTg8'
+    mapsLink: 'https://maps.app.goo.gl/jKVxbxhyhhuu5Bk5A'
   },
   'reprographic_centre': {
     name: 'Reprographic Centre',
@@ -77,47 +80,75 @@ export const CAMPUS_LOCATIONS: Record<string, {
     description: 'Printing and photocopying services',
     mapsLink: 'https://maps.app.goo.gl/FZ72xAAczEwk2mgi7'
   },
+  'malloc': {
+    name: 'Malloc',
+    coordinates: { latitude: 8.8937, longitude: 76.6146 },
+    description: 'Malloc - Student innovation space',
+    mapsLink: 'https://maps.app.goo.gl/YSNeu8quVya8Q2rG7'
+  },
+
+  // ⚽ Sports & Recreation
   'sports_area': {
     name: 'Multipurpose Sports Area',
     coordinates: { latitude: 8.8928, longitude: 76.6138 },
     description: 'Multipurpose sports and recreation area',
-    mapsLink: 'https://maps.app.goo.gl/uyPH83UZo3rjEFEBA'
+    mapsLink: 'https://maps.app.goo.gl/7udrNyuqcpqFt9QdA'
   },
   'football_ground': {
     name: 'LBS College Football Ground',
     coordinates: { latitude: 8.8925, longitude: 76.6135 },
     description: 'Main football ground',
-    mapsLink: 'https://maps.app.goo.gl/vjLN3ZgN2yUoxuSr5'
+    mapsLink: 'https://maps.app.goo.gl/UQFXPxeNAibXndGg8'
   },
+  'sevens_ground': {
+    name: 'LBS College Football Ground (7\'s Ground)',
+    coordinates: { latitude: 8.8923, longitude: 76.6133 },
+    description: '7-a-side football ground',
+    mapsLink: 'https://maps.app.goo.gl/Ac3hF8A5NzUYAUXX9'
+  },
+
+  // 🏠 Student Amenities
   'mens_hostel': {
-    name: "Men's Hostel",
+    name: "Men's Hostel (Verified Block)",
     coordinates: { latitude: 8.8945, longitude: 76.6155 },
     description: 'Boys hostel accommodation',
-    mapsLink: 'https://maps.app.goo.gl/fQ1QAUmNk5MDepgTA'
+    mapsLink: 'https://maps.app.goo.gl/LsvhTeDypf263vEB7'
   },
   'ladies_hostel': {
     name: 'Shahanas Hostel (Ladies Hostel)',
     coordinates: { latitude: 8.8948, longitude: 76.6158 },
     description: 'Shahanas Hostel for women students',
-    mapsLink: 'https://maps.app.goo.gl/nPwgvr3U3fXSiUj47'
+    mapsLink: 'https://maps.app.goo.gl/YatNVBSMh2kk34N76'
   },
   'canteen': {
     name: 'College Canteen',
     coordinates: { latitude: 8.8933, longitude: 76.6142 },
     description: 'Food court serving breakfast, lunch, and snacks',
-    mapsLink: 'https://maps.app.goo.gl/UN4s7g16zSMiHhYz8'
+    mapsLink: 'https://maps.app.goo.gl/rCmEM7mRmDZ5aGzx8'
   },
   'atm': {
     name: 'College ATM (SBI ATM)',
     coordinates: { latitude: 8.8931, longitude: 76.6140 },
     description: 'SBI ATM for cash withdrawal',
-    mapsLink: 'https://maps.app.goo.gl/ug6jLStaQDjnVZ239'
+    mapsLink: 'https://maps.app.goo.gl/Bjvi4taHV9gabc3bA'
   },
   'bus_garage': {
     name: 'Bus Garage / Transport Area',
     coordinates: { latitude: 8.8920, longitude: 76.6130 },
     description: 'College bus parking and transport area',
     mapsLink: 'https://maps.app.goo.gl/9WUemftWwmGohsRW8'
+  },
+  'student_coop': {
+    name: 'Student Co-Operative Society',
+    coordinates: { latitude: 8.8932, longitude: 76.6143 },
+    description: 'Student cooperative store for stationery and supplies',
+    mapsLink: 'https://maps.app.goo.gl/vZdwXwC62odZn53G7'
+  },
+  'electrical_control_room': {
+    name: 'Electrical Control Room',
+    coordinates: { latitude: 8.8930, longitude: 76.6139 },
+    description: 'Campus electrical control and maintenance room',
+    mapsLink: 'https://maps.app.goo.gl/NdGXX3SKfzGHnFnq8'
   },
 };
 
@@ -134,9 +165,9 @@ export const calculateDistance = (
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos((lat2 * Math.PI) / 180) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
@@ -151,7 +182,7 @@ export const getDirection = (
   const dLon = toLon - fromLon;
   const dLat = toLat - fromLat;
   const angle = (Math.atan2(dLon, dLat) * 180) / Math.PI;
-  
+
   const directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
   const index = Math.round(((angle + 360) % 360) / 45) % 8;
   return directions[index];
@@ -163,24 +194,24 @@ export const getGoogleMapsUrl = (
   origin?: Coordinates
 ): string => {
   const destStr = `${destination.latitude},${destination.longitude}`;
-  
+
   if (origin) {
     const originStr = `${origin.latitude},${origin.longitude}`;
     return `https://www.google.com/maps/dir/?api=1&origin=${originStr}&destination=${destStr}&travelmode=driving`;
   }
-  
+
   return `https://www.google.com/maps/dir/?api=1&destination=${destStr}&travelmode=driving`;
 };
 
 // Search for campus location by query
 export const searchCampusLocation = (query: string): { key: string; location: typeof CAMPUS_LOCATIONS[string] } | null => {
   const normalizedQuery = query.toLowerCase();
-  
+
   // Search by key or name
   for (const [key, location] of Object.entries(CAMPUS_LOCATIONS)) {
     const normalizedName = location.name.toLowerCase();
     const normalizedKey = key.replace(/_/g, ' ');
-    
+
     if (
       normalizedName.includes(normalizedQuery) ||
       normalizedQuery.includes(normalizedName) ||
@@ -190,7 +221,7 @@ export const searchCampusLocation = (query: string): { key: string; location: ty
       return { key, location };
     }
   }
-  
+
   // Special keyword matching
   const keywordMap: Record<string, string> = {
     'library': 'library',
@@ -252,14 +283,31 @@ export const searchCampusLocation = (query: string): { key: string; location: ty
     'department': 'academic_departments',
     'class': 'academic_departments',
     'classroom': 'academic_departments',
+    // New locations
+    'malloc': 'malloc',
+    'innovation space': 'malloc',
+    'student space': 'malloc',
+    '7s ground': 'sevens_ground',
+    'sevens ground': 'sevens_ground',
+    '7 a side': 'sevens_ground',
+    'seven a side': 'sevens_ground',
+    'coop': 'student_coop',
+    'co-op': 'student_coop',
+    'cooperative': 'student_coop',
+    'society': 'student_coop',
+    'stationery': 'student_coop',
+    'store': 'student_coop',
+    'electrical': 'electrical_control_room',
+    'control room': 'electrical_control_room',
+    'power': 'electrical_control_room',
   };
-  
+
   for (const [keyword, locationKey] of Object.entries(keywordMap)) {
     if (normalizedQuery.includes(keyword)) {
       return { key: locationKey, location: CAMPUS_LOCATIONS[locationKey] };
     }
   }
-  
+
   return null;
 };
 
@@ -276,7 +324,7 @@ export const useGeolocation = () => {
     if (!navigator.permissions) {
       return null;
     }
-    
+
     try {
       const result = await navigator.permissions.query({ name: 'geolocation' });
       setState(prev => ({ ...prev, permissionState: result.state }));
@@ -316,7 +364,7 @@ export const useGeolocation = () => {
         },
         (error) => {
           let errorMessage = 'Unable to get your location';
-          
+
           switch (error.code) {
             case error.PERMISSION_DENIED:
               errorMessage = 'Location permission denied. Please enable location access.';
@@ -329,7 +377,7 @@ export const useGeolocation = () => {
               errorMessage = 'Location request timed out.';
               break;
           }
-          
+
           setState(prev => ({ ...prev, isLoading: false, error: errorMessage }));
           reject(new Error(errorMessage));
         },

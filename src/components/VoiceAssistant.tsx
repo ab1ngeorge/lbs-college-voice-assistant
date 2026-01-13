@@ -24,6 +24,8 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   language?: "malayalam" | "manglish" | "english";
+  locationName?: string;
+  locationLink?: string;
 }
 
 type VoiceStatus = "idle" | "listening" | "processing" | "speaking";
@@ -130,7 +132,7 @@ const VoiceAssistant = () => {
   const initSpeechRecognition = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    
+
     if (!SpeechRecognitionAPI) {
       toast({
         variant: "destructive",
@@ -141,7 +143,7 @@ const VoiceAssistant = () => {
     }
 
     const recognition = new SpeechRecognitionAPI();
-    
+
     recognition.continuous = false;
     recognition.interimResults = false;
     recognition.lang = "ml-IN"; // Malayalam, but also recognizes English
@@ -161,7 +163,7 @@ const VoiceAssistant = () => {
     try {
       // Initialize audio context for mobile
       initAudioContext();
-      
+
       isAudioPlayingRef.current = true;
       setPlayingMessageId(messageId);
       setVoiceStatus("speaking");
@@ -190,7 +192,7 @@ const VoiceAssistant = () => {
       }
       const blob = new Blob([bytes], { type: 'audio/wav' });
       const audioUrl = URL.createObjectURL(blob);
-      
+
       // Create audio element with iOS-friendly settings
       const audio = new Audio();
       audio.preload = 'auto';
@@ -218,13 +220,13 @@ const VoiceAssistant = () => {
 
       // Set source
       audio.src = audioUrl;
-      
+
       // Load and play audio
       audio.src = audioUrl;
-      
+
       // Use simpler approach - just load and play
       audio.load();
-      
+
       // Small delay to ensure audio is ready
       await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -283,7 +285,7 @@ const VoiceAssistant = () => {
       // Check if this is a location query
       if (isLocationQuery(text)) {
         const destinationKey = extractDestination(text);
-        
+
         // Get the destination location from campus locations
         const destResult = destinationKey ? searchCampusLocation(destinationKey) : null;
         const destLocation = destResult?.location || {
@@ -292,18 +294,18 @@ const VoiceAssistant = () => {
           description: 'Main campus',
           mapsLink: COLLEGE_MAPS_LINK
         };
-        
+
         // Try to get user location for distance calculation
         try {
           const userCoords = await getCurrentPosition();
-          
+
           const distance = calculateDistance(
             userCoords.latitude,
             userCoords.longitude,
             destLocation.coordinates.latitude,
             destLocation.coordinates.longitude
           );
-          
+
           const direction = getDirection(
             userCoords.latitude,
             userCoords.longitude,
@@ -311,52 +313,46 @@ const VoiceAssistant = () => {
             destLocation.coordinates.longitude
           );
 
-          const distanceText = distance < 1 
-            ? `${Math.round(distance * 1000)} meters` 
+          const distanceText = distance < 1
+            ? `${Math.round(distance * 1000)} meters`
             : `${distance.toFixed(1)} kilometers`;
 
-          const navigationResponse = `${destLocation.name} is approximately ${distanceText} to the ${direction} from your current location. Opening Google Maps for turn by turn directions now.`;
+          const navigationResponse = `${destLocation.name} is approximately ${distanceText} to the ${direction} from your current location. You can use the button below to get turn by turn directions in Google Maps.`;
 
           const assistantMessage: Message = {
             id: (Date.now() + 1).toString(),
             role: "assistant",
             content: `📍 ${navigationResponse}`,
             language: "english",
+            locationName: destLocation.name,
+            locationLink: destLocation.mapsLink,
           };
 
           setMessages((prev) => [...prev, assistantMessage]);
-          
+
           // Speak the directions
           playAudio(navigationResponse, assistantMessage.id, "english", true);
-          
-          // Open verified Google Maps link
-          setTimeout(() => {
-            window.open(destLocation.mapsLink, '_blank');
-          }, 2000);
 
           setVoiceStatus("idle");
           setIsProcessing(false);
           return;
         } catch (locationError) {
-          console.log('Location not available, opening maps directly');
-          
-          // Even without user location, open the destination in Google Maps
-          const navigationResponse = `Opening Google Maps for ${destLocation.name}. Enable location services for better navigation.`;
+          console.log('Location not available, showing maps button');
+
+          // Even without user location, provide the maps button
+          const navigationResponse = `Here's information about ${destLocation.name}. ${destLocation.description}. Click the button below to open Google Maps. Enable location services for better navigation.`;
 
           const assistantMessage: Message = {
             id: (Date.now() + 1).toString(),
             role: "assistant",
             content: `📍 ${navigationResponse}`,
             language: "english",
+            locationName: destLocation.name,
+            locationLink: destLocation.mapsLink,
           };
 
           setMessages((prev) => [...prev, assistantMessage]);
           playAudio(navigationResponse, assistantMessage.id, "english", true);
-          
-          // Open verified Google Maps link
-          setTimeout(() => {
-            window.open(destLocation.mapsLink, '_blank');
-          }, 1500);
 
           setVoiceStatus("idle");
           setIsProcessing(false);
@@ -371,9 +367,9 @@ const VoiceAssistant = () => {
       }));
 
       const { data, error } = await supabase.functions.invoke("college-chat", {
-        body: { 
+        body: {
           message: text,
-          conversationHistory 
+          conversationHistory
         },
       });
 
@@ -414,17 +410,14 @@ const VoiceAssistant = () => {
       role: "assistant",
       content: `📍 ${navigationResponse}`,
       language: "english",
+      locationName: result.destination.name,
+      locationLink: result.googleMapsUrl,
     };
 
     setMessages((prev) => [...prev, assistantMessage]);
-    
+
     // Speak the directions
     playAudio(navigationResponse, assistantMessage.id, "english", true);
-    
-    // Open Google Maps
-    setTimeout(() => {
-      window.open(result.googleMapsUrl, '_blank');
-    }, 1500);
 
     setShowLocationPanel(false);
     setPendingLocationQuery(null);
@@ -434,7 +427,7 @@ const VoiceAssistant = () => {
   const handleVoiceClick = useCallback(() => {
     // Initialize audio context on user gesture (critical for mobile)
     initAudioContext();
-    
+
     if (voiceStatus === "listening") {
       // Stop listening
       recognitionRef.current?.stop();
@@ -551,9 +544,11 @@ const VoiceAssistant = () => {
                     : undefined
                 }
                 isPlaying={playingMessageId === message.id}
+                locationName={message.locationName}
+                locationLink={message.locationLink}
               />
             ))}
-            
+
             {/* Processing indicator */}
             {isProcessing && (
               <div className="flex items-center gap-3 text-muted-foreground">
@@ -561,7 +556,7 @@ const VoiceAssistant = () => {
                 <span className="text-sm">Thinking...</span>
               </div>
             )}
-            
+
             {/* Location Panel */}
             {showLocationPanel && (
               <div className="mt-4">
@@ -571,7 +566,7 @@ const VoiceAssistant = () => {
                 />
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
         )}
@@ -584,7 +579,7 @@ const VoiceAssistant = () => {
           <span className="text-sm font-medium">Listening...</span>
         </div>
       )}
-      
+
       {voiceStatus === "speaking" && (
         <div className="flex items-center justify-center gap-2 py-2 text-kerala-green">
           <AudioWaveform isActive variant="speaking" />
@@ -610,7 +605,7 @@ const VoiceAssistant = () => {
               onClick={handleVoiceClick}
               disabled={isProcessing}
             />
-            
+
             {/* Location button */}
             <Button
               variant="outline"

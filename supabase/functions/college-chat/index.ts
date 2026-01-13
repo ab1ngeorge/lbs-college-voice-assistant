@@ -628,6 +628,286 @@ const COLLEGE_FAQ_DATA = [
       "Nearby Landmarks": "LBS Fluid Mechanics Lab, Central Bank of India",
       "Programs": "MCA (Master of Computer Applications) and other PG courses"
     }
+  },
+  {
+    "id": 58,
+    "tags": ["governing body", "administration", "chairman", "pinarayi vijayan", "r bindu", "sharmila mary joseph", "abdul rahiman", "thamban nair"],
+    "answer_facts": {
+      "Chairman, Governing Body": "Sri. Pinarayi Vijayan (Hon. Chief Minister)",
+      "Vice Chairperson, Governing Body": "Dr. R. Bindu (Hon. Minister for Higher Education)",
+      "Chairperson, Executive Committee": "Dr. Sharmila Mary Joseph IAS (Principal Secretary)",
+      "Member Secretary, LBS Centre for Science & Technology": "Prof. (Dr.) M. Abdul Rahiman",
+      "Chairman, Board of Governors (BoG)": "Prof. M. Thamban Nair",
+      "Principal": "Dr. Mohammad Sekoor T",
+      "Administrative Officer": "Mr. Ajesh S",
+      "Senior Superintendent": "Mr. Santhosh Kumar K",
+      "Junior Superintendent": "Mrs. Shaina Pacha",
+      "Head Accountant": "Mr. Aneesh Mohan C S"
+    }
+  },
+  {
+    "id": 59,
+    "tags": ["cse faculty", "computer science faculty", "cse teachers", "cse professors", "praveen kumar", "vinodu george", "manoj kumar g", "anver", "jayalekshmi", "sulphikar", "rahul c", "hod cse"],
+    "answer_facts": {
+      "Dean (Academic) & Professor": "Dr. Praveen Kumar K",
+      "Dean (Student Affairs) & Professor": "Dr. Vinodu George",
+      "Professor & HOD": "Dr. Manoj Kumar G",
+      "Professor & HOD (IT / CSE)": "Dr. Anver S R",
+      "Professor": "Dr. Jayalekshmi S",
+      "Associate Professors": "Dr. Sulphikar A, Dr. Rahul C",
+      "Assistant Professors": "Prof. Binoy D M Panikar, Prof. Safarunisa K M, Prof. Rajesh Kumar P M, Prof. Reema K V, Prof. Nishy Reshmi S, Prof. Lijin Das S, Prof. Krishnaprasad P K, Dr. Sarith Divakar M, Prof. Indu K B, Prof. Baby Sunitha V P, Prof. Fathimath Sameera M A, Prof. Vengayil Nayana Murali, Prof. Sajina K., Prof. Prathima A, Prof. Rasna P, Prof. Navami Aravind A, Prof. Geetha A V, Prof. Arathi S S, Prof. Sandra Mercelin",
+      "Total CSE Faculty": "26 faculty members"
+    }
+  },
+  {
+    "id": 60,
+    "tags": ["it faculty", "information technology faculty", "it teachers", "it professors", "smithamol", "seena thomas", "ayshath sithara"],
+    "answer_facts": {
+      "Professor": "Dr. Smithamol M B",
+      "Assistant Professors": "Prof. Seena Thomas, Prof. Ayshath Sithara, Prof. Seetha Das V, Prof. Dhanyashree A S, Prof. Ramya P M, Prof. Sreejai, Prof. Nimitha Raj",
+      "Total IT Faculty": "8 faculty members"
+    }
+  },
+  {
+    "id": 61,
+    "tags": ["mechanical faculty", "me faculty", "mechanical teachers", "mechanical professors", "manoj kumar cv", "mahesh pv", "swaraj kumar", "hod mechanical"],
+    "answer_facts": {
+      "Associate Professor & HOD": "Dr. Manoj Kumar C V",
+      "Associate Professors": "Prof. Mahesh P V, Dr. Swaraj Kumar B, Dr. Anil Kumar B C",
+      "Assistant Professors": "Prof. Jowhar Mubarak, Prof. Vinod O M, Prof. Sreejith M, Prof. Prajina N V, Prof. Mukul Joseph, Prof. Latheesh Bharathan, Prof. Aswanth K, Prof. Kamaljith K",
+      "Total Mechanical Faculty": "12 faculty members"
+    }
+  },
+  {
+    "id": 62,
+    "tags": ["ece faculty", "electronics faculty", "ece teachers", "ece professors", "mary reena", "sheeba k", "pramod p", "hod ece"],
+    "answer_facts": {
+      "Professor & HOD": "Dr. Mary Reena K E",
+      "Professors": "Dr. Sheeba K, Dr. Pramod P",
+      "Associate Professors": "Prof. Santo Mathew, Dr. Arathi T",
+      "Assistant Professors": "Dr. Baiju P S, Dr. Anusree L, Dr. Anitha K, Prof. Zainaba Abdulrahiman, Prof. Vaishnavi T V",
+      "Total ECE Faculty": "10 faculty members"
+    }
+  },
+  {
+    "id": 63,
+    "tags": ["eee faculty", "electrical faculty", "eee teachers", "eee professors", "jayakumar m", "rajashree raghavan", "visalakshi", "hod eee"],
+    "answer_facts": {
+      "Associate Professor & HOD": "Prof. Jayakumar M",
+      "Professor": "Dr. Rajashree Raghavan",
+      "Associate Professors": "Dr. Visalakshi V, Prof. Baby Sindhu A V, Dr. Aseem K",
+      "Assistant Professors": "Dr. Sheeja V, Dr. Kannan M, Prof. Abhilash V Nair, Prof. Anish Joseph Jacob, Prof. Arun S Mathew, Prof. Mujeeb Rahuman, Prof. Seena K R",
+      "Total EEE Faculty": "12 faculty members"
+    }
+  },
+  {
+    "id": 64,
+    "tags": ["civil faculty", "civil engineering faculty", "civil teachers", "civil professors", "anjali ms", "arun nr", "hod civil"],
+    "answer_facts": {
+      "Associate Professor & HOD": "Dr. Anjali M S",
+      "Assistant Professors": "Dr. Arun N R, Prof. Merlin R, Prof. Sruthi M, Prof. Sreevidya V, Prof. Jisha K V, Prof. Anjali M, Prof. Drisya M D, Prof. Athira Suresh, Prof. Sarga P Surendran",
+      "Total Civil Faculty": "10 faculty members"
+    }
+  },
+  {
+    "id": 65,
+    "tags": ["applied science faculty", "physics faculty", "chemistry faculty", "mathematics faculty", "english faculty", "vineesh kumar", "hod applied science"],
+    "answer_facts": {
+      "HOD & Assistant Professor (Mathematics)": "Prof. Vineesh Kumar K V",
+      "Mathematics Faculty": "Prof. Ramya M R, Prof. Smitha P, Prof. Rabiyathul Hadaviyya",
+      "Chemistry Faculty": "Prof. Fathimath Ruksana A K, Dr. Dhanya Balan A P",
+      "Physics Faculty": "Prof. Akhil Kumar A, Prof. Darshana N P",
+      "Economics Faculty": "Prof. Jasir M H",
+      "English Faculty": "Prof. Rajesh A, Prof. Vishnupriya V S",
+      "Total Applied Science Faculty": "11 faculty members"
+    }
+  },
+  {
+    "id": 66,
+    "tags": ["library staff", "librarian", "physical education", "vinod kumar kt", "beena varghese", "joshua py"],
+    "answer_facts": {
+      "Librarian": "Mr. Vinod Kumar K T",
+      "Librarian Grade IV": "Mrs. Beena Varghese",
+      "Assistant Professor, Physical Education": "Prof. Joshua P Y"
+    }
+  },
+  {
+    "id": 67,
+    "tags": ["clubs", "student clubs", "iedc", "iedc clubs", "technical clubs", "list of clubs"],
+    "answer_facts": {
+      "IEDC Clubs": "MULEARN, TINKERHUB, FOSS CLUB, CYBER COMMUNITY, MSA (Microsoft Learn Student Ambassadors), CODERS CLUB, GALAXIA CLUB, GDG on Campus, YIP CLUB, WOMEN TECH MAKERS, KBA CHAPTER, WOW, AWS CLOUD CLUB",
+      "Technical Clubs": "IEEE Student Branch, CSI, ISTE, IETE, SAE",
+      "Cultural Clubs": "Music Club, Dance Club, Drama Club, Fine Arts Club",
+      "Other Clubs": "Entrepreneurship Cell, Literary Club, Photography Club, Nature Club",
+      "Total Student Clubs": "20+ active clubs on campus"
+    }
+  },
+  {
+    "id": 68,
+    "tags": ["mulearn", "mulearn club", "learning platform"],
+    "answer_facts": {
+      "Name": "MULEARN",
+      "Type": "IEDC Club - Learning Platform",
+      "Description": "Mulearn is an innovative learning platform that offers personalized educational experiences through adaptive technology, interactive content, and community collaboration. It enables learners to acquire new skills and knowledge at their own pace, with expert instructors and engaging content tailored to meet personal and professional development needs."
+    }
+  },
+  {
+    "id": 69,
+    "tags": ["tinkerhub", "tinkerhub foundation", "makers", "innovators"],
+    "answer_facts": {
+      "Name": "TINKERHUB",
+      "Type": "IEDC Club - Innovation Community",
+      "Description": "TinkerHub Foundation is a community of tinkerers, makers & students - working towards mapping and empowering people who share a passion to innovate."
+    }
+  },
+  {
+    "id": 70,
+    "tags": ["foss", "foss club", "open source", "free software"],
+    "answer_facts": {
+      "Name": "FOSS CLUB LBSCEK",
+      "Type": "IEDC Club - Open Source Community",
+      "Description": "FOSS Club LBSCEK is a community of students passionate about Free and Open Source Software. We believe in learning, sharing, and contributing – the open way. Our club creates a space for collaboration, creativity, and innovation using open technologies."
+    }
+  },
+  {
+    "id": 71,
+    "tags": ["cyber", "cyber community", "cybersecurity", "ethical hacking", "security"],
+    "answer_facts": {
+      "Name": "CYBER COMMUNITY",
+      "Type": "IEDC Club - Cybersecurity",
+      "Description": "Cyber Community at LBSCEK is a student-led learning and research group focused on practical cybersecurity, ethical hacking, and responsible use of technology. We bring together curious students from all departments to learn, build, and defend — not for show, but to gain real skills that matter in industry and research.",
+      "Activities": "Hands-on workshops, expert talks, project-based learning, community awareness drives, and competitions",
+      "Focus": "Learning-by-doing, building a sustainable student-run ecosystem where knowledge is shared, skills are practiced, and leadership is grown"
+    }
+  },
+  {
+    "id": 72,
+    "tags": ["msa", "mlsa", "microsoft", "microsoft learn", "student ambassadors"],
+    "answer_facts": {
+      "Name": "MSA - Microsoft Learn Student Ambassadors",
+      "Type": "IEDC Club - Microsoft Global Initiative",
+      "Description": "The Microsoft Learn Student Ambassadors (MLSA) program is a global initiative by Microsoft designed to empower students to become campus leaders in technology, innovation, and community building.",
+      "Benefits": "Exclusive access to Microsoft resources, mentorship, and certifications",
+      "Technologies": "Azure, Power Platform, GitHub, AI, and more",
+      "Skills Developed": "Technical expertise, leadership, communication, and problem-solving skills through hosting events, mentoring peers, and contributing to real-world projects"
+    }
+  },
+  {
+    "id": 73,
+    "tags": ["coders club", "coding", "programming", "coding club"],
+    "answer_facts": {
+      "Name": "CODERS CLUB",
+      "Type": "IEDC Club - Programming Community",
+      "Description": "Coders Club is the hub for all things programming at LBS College of Engineering Kasaragod. We bring together students who are curious about coding, problem-solving, and building real-world projects.",
+      "Activities": "Workshops, coding sessions, and competitions",
+      "Mission": "Create a collaborative space where ideas turn into skills, and skills turn into innovation. We help beginners take their first steps in programming while also challenging advanced learners to push their limits."
+    }
+  },
+  {
+    "id": 74,
+    "tags": ["galaxia", "galaxia club", "space club", "astronomy", "space science"],
+    "answer_facts": {
+      "Name": "GALAXIA CLUB",
+      "Type": "IEDC Club - Space Science & Astronomy",
+      "Description": "Galaxia is the official space club of LBS College of Engineering, Kasaragod. The club is dedicated to cultivating an interest in space science, astronomy, and space technology among students.",
+      "Focus": "Fostering innovation, curiosity, and scientific temper by connecting students with experts and real-world applications of space tech",
+      "Activities": "Broad spectrum of events and activities, building a vibrant campus community passionate about exploring the universe"
+    }
+  },
+  {
+    "id": 75,
+    "tags": ["gdg", "google developer groups", "google developers", "gdg on campus"],
+    "answer_facts": {
+      "Name": "GDG (Google Developer Groups) on Campus LBSCEK",
+      "Type": "IEDC Club - Google Developer Community",
+      "Description": "GDG on Campus LBSCEK is a newly established student community at LBS College of Engineering, Kasaragod. The club brings together developers, designers, and tech enthusiasts who are eager to learn, build, and innovate with Google technologies.",
+      "Focus Areas": "Web and mobile development, AI/ML, cloud computing, and design thinking",
+      "Goal": "Inspire curiosity, foster innovation, and help students grow into future-ready developers and leaders through peer learning, workshops, and collaborations"
+    }
+  },
+  {
+    "id": 76,
+    "tags": ["yip", "yip club", "k-disc", "innovation council"],
+    "answer_facts": {
+      "Name": "YIP CLUB",
+      "Type": "IEDC Club - Kerala Government Initiative",
+      "Description": "YIP (Young Innovators Programme) is a key initiative of Kerala's K-DISC (Kerala Development and Innovation Strategic Council) that empowers students to create real-world solutions that drive sustainable and equitable development."
+    }
+  },
+  {
+    "id": 77,
+    "tags": ["women tech makers", "wtm", "google women", "women in tech"],
+    "answer_facts": {
+      "Name": "WOMEN TECH MAKERS",
+      "Type": "IEDC Club - Google Women in Tech Program",
+      "Description": "Google's Women Techmakers (WTM) is a global program that provides visibility, community, and resources for women in technology, aiming to empower and encourage them to pursue and excel in tech careers."
+    }
+  },
+  {
+    "id": 78,
+    "tags": ["kba", "kba chapter", "blockchain", "kerala blockchain academy"],
+    "answer_facts": {
+      "Name": "KBA CHAPTER - Kerala Blockchain Academy LBSCEK",
+      "Type": "IEDC Club - Blockchain Technology",
+      "Description": "KBA LBSCEK is the official Kerala Blockchain Academy Chapter of LBS College of Engineering, Kasaragod. The chapter is committed to promoting awareness, learning, and innovation in blockchain technology among students.",
+      "Activities": "Workshops, talks, and hands-on projects exploring blockchain in real-world applications",
+      "Focus": "Nurturing technical expertise, entrepreneurial thinking, and innovation by bridging students with industry leaders and cutting-edge advancements in decentralized technologies"
+    }
+  },
+  {
+    "id": 79,
+    "tags": ["wow", "women of wonder", "women empowerment", "wow club"],
+    "answer_facts": {
+      "Name": "WOW (Women of Wonder) Club",
+      "Type": "IEDC Club - Women Empowerment",
+      "Description": "The Women of Wonder (WOW) Club is a student-led initiative that empowers women through creativity, leadership, and social impact. It provides an inclusive space where students can voice their ideas, showcase talents, and inspire positive change."
+    }
+  },
+  {
+    "id": 80,
+    "tags": ["aws", "aws club", "aws cloud club", "amazon", "cloud computing"],
+    "answer_facts": {
+      "Name": "AWS CLOUD CLUB",
+      "Type": "IEDC Club - Amazon Web Services",
+      "Description": "An AWS Cloud Club is a student-led community recognized by Amazon Web Services. It helps students learn cloud computing, build projects, and grow career skills with AWS.",
+      "Leadership": "Each club is guided by a Faculty Advisor and a Campus Lead (student leader)",
+      "Focus": "Cloud computing, AWS services, hands-on projects, and career development"
+    }
+  },
+  {
+    "id": 81,
+    "tags": ["bus", "bus routes", "college bus", "transport", "bus number", "ബസ്", "ബസ് റൂട്ട്", "bus evidunnu", "bus undoo", "bus evide"],
+    "answer_facts": {
+      "Bus 1": "Melparamb Route",
+      "Bus 2": "Kanhangad Route",
+      "Bus 3": "Kasaragod Route",
+      "Bus 4": "Periya Route",
+      "Bus 5": "Pallikara Route",
+      "Bus 6": "Nileshwaram Route",
+      "Total Buses": "6 college buses operating on different routes",
+      "Malayalam": "കോളേജിന് 6 ബസ്സുകൾ ഉണ്ട്: മേൽപറമ്പ്, കാഞ്ഞങ്ങാട്, കാസർഗോഡ്, പെരിയ, പള്ളിക്കര, നീലേശ്വരം റൂട്ടുകളിൽ",
+      "Manglish": "College nu 6 bus und: Melparamb, Kanhangad, Kasaragod, Periya, Pallikara, Nileshwaram routes il"
+    }
+  },
+  {
+    "id": 82,
+    "tags": ["bus fee", "bus timing", "kasaragod bus", "bus pickup", "transport fee", "ബസ് ഫീസ്", "ബസ് സമയം", "bus ethra", "bus fee ethra", "bus time enthu"],
+    "answer_facts": {
+      "Pallikkara": "Pickup: 8:10 AM | Student Fee: ₹11,910 | Staff Fee: ₹14,810",
+      "Bekal": "Pickup: 8:15 AM | Student Fee: ₹11,180 | Staff Fee: ₹13,860",
+      "Palakkunnu": "Pickup: 8:20 AM | Student Fee: ₹10,530 | Staff Fee: ₹13,130",
+      "Uduma": "Pickup: 8:25 AM | Student Fee: ₹10,060 | Staff Fee: ₹12,500",
+      "Kalanadu": "Pickup: 8:30 AM | Student Fee: ₹9,420 | Staff Fee: ₹11,660",
+      "Melparamba": "Pickup: 8:35 AM | Student Fee: ₹8,960 | Staff Fee: ₹11,240",
+      "Chaliyancode": "Pickup: 8:40 AM | Student Fee: ₹8,580 | Staff Fee: ₹10,710",
+      "Chemnad": "Pickup: 8:45 AM | Student Fee: ₹8,500 | Staff Fee: ₹10,290",
+      "Kasaragod": "Pickup: 8:50 AM | Student Fee: ₹8,400 | Staff Fee: ₹10,200",
+      "Vidya Nagar": "Pickup: 8:55 AM | Student Fee: ₹5,630 | Staff Fee: ₹6,930",
+      "Nalam Mile": "Pickup: 9:00 AM | Student Fee: ₹4,530 | Staff Fee: ₹5,570",
+      "Cherkala": "Pickup: 9:05 AM | Student Fee: ₹3,420 | Staff Fee: ₹4,200",
+      "Malayalam_Note": "കാസർഗോഡ് സൈഡിൽ നിന്ന് രാവിലെ 8:10 മുതൽ 9:05 വരെ ബസ് പിക്കപ്പ് ഉണ്ട്. സ്റ്റുഡന്റ് ഫീസ് ₹3,420 മുതൽ ₹11,910 വരെ",
+      "Manglish_Note": "Kasaragod side il ninnu ravile 8:10 muthal 9:05 vare bus pickup und. Student fee ₹3,420 muthal ₹11,910 vare aanu"
+    }
   }
 ];
 
@@ -651,17 +931,33 @@ PERSONALITY & TONE:
 - Show genuine interest in helping
 - Use filler words occasionally for naturalness (like "So...", "Well...", "Actually...")
 
-CRITICAL LANGUAGE RULES - MUST FOLLOW EXACTLY:
-1. Malayalam Script (മലയാളം): If user writes in Malayalam script, respond ONLY in pure Malayalam script. Be fluent and natural.
+CRITICAL LANGUAGE RULES - ABSOLUTE MUST FOLLOW:
+⚠️ THIS IS THE MOST IMPORTANT RULE - NEVER BREAK IT:
+- ALWAYS respond in the EXACT SAME language the user used
+- If user asks in English → Reply ONLY in English
+- If user asks in Malayalam script → Reply ONLY in Malayalam script
+- If user asks in Manglish → Reply ONLY in Manglish
+- NEVER mix languages in your response
+- NEVER switch to English if user asked in Manglish or Malayalam
+
+1. ENGLISH: If user writes in pure English (no Malayalam words):
+   - Respond in clear, natural, conversational English
+   - Example: User: "What are the bus routes?" → Respond fully in English
+   - Example: User: "Tell me about CSE faculty" → Respond fully in English
+
+2. MALAYALAM SCRIPT (മലയാളം): If user writes in Malayalam script:
+   - Respond ONLY in pure Malayalam script. Be fluent and natural.
    - Use proper Malayalam grammar and vocabulary
    - Be warm and respectful (use "നിങ്ങൾ" for you, not "നീ")
    - Example: User: "ലൈബ്രറി എവിടെയാണ്?" → Respond fully in Malayalam script
+   - Example: User: "ബസ് ഫീസ് എത്രയാണ്?" → Respond fully in Malayalam script
    
-2. Manglish: If user writes Malayalam words in English letters, respond in the same Manglish style.
-   - Recognize patterns like: "enthu", "aanu", "undoo", "illa", "venam", "evideyanu", "ariyaam", etc.
+3. MANGLISH: If user writes Malayalam words in English letters:
+   - Respond ONLY in Manglish style (Malayalam words written in English letters)
+   - Recognize patterns like: "enthu", "aanu", "undoo", "illa", "venam", "evideyanu", "ariyaam", "evide", "ethra", "ennanu", etc.
    - Example: User: "library evide aanu?" → "Library main academic block inte aduth aanu. CSE department inte near aanu."
-   
-3. English: If user writes in English, respond in clear, natural English.
+   - Example: User: "bus fee ethra aanu?" → "Bus fee Kasaragod ninnu ₹8,400 aanu students nu. Staff nu ₹10,200 aanu."
+   - Example: User: "college clubs enthokkeyanu?" → "College il 20+ clubs und. MULEARN, TINKERHUB, FOSS CLUB, CYBER COMMUNITY, GDG on Campus, AWS CLOUD CLUB okke und."
 
 NATURAL SPEAKING STYLE FOR TTS:
 - Use short, clear sentences
@@ -747,7 +1043,7 @@ serve(async (req) => {
     const hasMalayalam = /[\u0D00-\u0D7F]/.test(message);
     const manglishPatterns = /\b(enthu|aanu|undoo|illa|venam|pokaam|vannoo|cheyyam|cheythu|eppol|evide|evideyanu|enne|ninne|njan|ningal|avar|ath|ithu|athu|engane|enthaanu|enikkum|njangal|nammal|kollaam|pattum|patilla|aaranu|edukkam|veno|vende|nokku|paranju|parayoo|ariyaam|ariyilla|evidunnu|ethra|entho|athe|namaskaram|nanni|sheriyaanu|angane|ingane|avalude|ivide|avide|kittum|kittilla|padikkam|padikkunnu|thudangi|kazhinjhu|varaam|varum|povaam|povum|cheyyan|cheyyanam|cheyth|koodi|koode|kure|valare|adipoli|pwoli|mathi|mathiyayo|venam|vendaa|onnu|randu|moonu|naalu|anchu|puthiya|pazhaya|nalla|mosham|kollam|ningalkku|enikku|avarku|ivarkku|athinnu|ithinnu|kazhinju|kazhiyum|parayan|parayaan|ariyaan|ariyilla)\b/i;
     const hasManglishPatterns = manglishPatterns.test(message);
-    
+
     let detectedLanguage = 'english';
     if (hasMalayalam) {
       detectedLanguage = 'malayalam';
@@ -781,7 +1077,7 @@ serve(async (req) => {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('AI Gateway error:', response.status, errorText);
-      
+
       if (response.status === 429) {
         return new Response(
           JSON.stringify({ error: 'Rate limit exceeded. Please try again in a moment.' }),
