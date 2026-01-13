@@ -125,7 +125,7 @@ const fetchFromWebsite = async (url: string): Promise<string | null> => {
 const COLLEGE_FAQ_DATA = [
   {
     "id": 1,
-    "tags": ["courses", "programs", "admissions", "കോഴ്സുകൾ", "പ്രോഗ്രാമുകൾ", "ബിടെക്", "എംടെക്", "branches", "departments"],
+    "tags": ["courses", "programs", "admissions", "കോഴ്സുകൾ", "പ്രോഗ്രാമുകൾ", "ബിടെക്", "എംടെക്", "branches", "departments", "course enthu", "course enthokkeyanu", "branch enthokkeyanu", "btech courses", "mtech courses", "course und", "enthokke courses"],
     "answer_facts": {
       "UG Programs (B.Tech)": "Computer Science & Engineering (CSE), Electronics & Communication Engineering (ECE), Electrical & Electronics Engineering (EEE), Mechanical Engineering (ME), Civil Engineering (CE), Information Technology (IT)",
       "PG Programs": "M.Tech in Computer Science & Engineering, Master of Computer Applications (MCA)",
@@ -138,7 +138,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 2,
-    "tags": ["contact", "phone", "email", "address", "ഫോൺ", "ഇമെയിൽ", "വിലാസം", "നമ്പർ", "ബന്ധപ്പെടുക"],
+    "tags": ["contact", "phone", "email", "address", "ഫോൺ", "ഇമെയിൽ", "വിലാസം", "നമ്പർ", "ബന്ധപ്പെടുക", "phone number enthu", "email enthu", "contact enthu", "number tharuo", "vilikkan number", "phone number tharo"],
     "answer_facts": {
       "Phone": "+91-4994-256300, +91-4994-256301",
       "Fax": "+91-4994-256302",
@@ -154,7 +154,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 3,
-    "tags": ["library", "facilities", "timings", "ലൈബ്രറി", "പുസ്തകശാല", "സമയം", "ലൈബ്രറി സമയം"],
+    "tags": ["library", "facilities", "timings", "ലൈബ്രറി", "പുസ്തകശാല", "സമയം", "ലൈബ്രറി സമയം", "library evide", "library time enthu", "library eppol thurakum", "library timing", "library evideyanu"],
     "answer_facts": {
       "Weekdays (Mon-Fri)": "8:30 AM to 8:00 PM",
       "Saturdays": "8:30 AM to 5:00 PM",
@@ -169,7 +169,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 4,
-    "tags": ["admission", "apply", "procedure", "അഡ്മിഷൻ", "പ്രവേശനം", "എങ്ങനെ ചേരാം", "KEAM", "കീം"],
+    "tags": ["admission", "apply", "procedure", "അഡ്മിഷൻ", "പ്രവേശനം", "എങ്ങനെ ചേരാം", "KEAM", "കീം", "admission engane", "admission procedure enthu", "engane cheraam", "engane apply cheyyam", "admission kittaan", "eligibility enthu", "apply cheyyaan"],
     "answer_facts": {
       "Application Mode": "Through KEAM (Kerala Engineering Architecture Medical) counselling",
       "Eligibility": "10+2 with minimum 50% marks in Physics, Chemistry, and Mathematics",
@@ -185,7 +185,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 5,
-    "tags": ["fees", "fee structure", "tuition", "ഫീസ്", "ഫീസ് എത്ര", "പണം", "ചെലവ്"],
+    "tags": ["fees", "fee structure", "tuition", "ഫീസ്", "ഫീസ് എത്ര", "പണം", "ചെലവ്", "fee ethra", "fee ethranu", "fees enthu", "fee structure enthu", "college fee", "tuition fee ethra", "fee kitty", "panam ethra venam"],
     "answer_facts": {
       "Government Seat Fees": "Approximately ₹45,000 per year",
       "Management Seat Fees": "Approximately ₹75,000 per year",
@@ -200,7 +200,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 6,
-    "tags": ["hostel", "accommodation", "boarding", "ഹോസ്റ്റൽ", "താമസം", "ബോയ്സ് ഹോസ്റ്റൽ", "ഗേൾസ് ഹോസ്റ്റൽ", "ഷഹാനാസ് ഹോസ്റ്റൽ"],
+    "tags": ["hostel", "accommodation", "boarding", "ഹോസ്റ്റൽ", "താമസം", "ബോയ്സ് ഹോസ്റ്റൽ", "ഗേൾസ് ഹോസ്റ്റൽ", "ഷഹാനാസ് ഹോസ്റ്റൽ", "hostel undoo", "hostel evideyanu", "boys hostel evide", "girls hostel evide", "shahanas hostel", "hostel fee ethra", "thamasu", "accommodation und"],
     "answer_facts": {
       "Boys Hostel": "Separate hostel blocks with capacity for 300 students",
       "Girls Hostel": "Secure hostel with capacity for 200 students, known as Shahanas Hostel",
@@ -216,7 +216,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 7,
-    "tags": ["placement", "jobs", "career", "recruitment", "പ്ലേസ്മെന്റ്", "ജോലി", "കമ്പനികൾ", "ശമ്പളം", "പാക്കേജ്"],
+    "tags": ["placement", "jobs", "career", "recruitment", "പ്ലേസ്മെന്റ്", "ജോലി", "കമ്പനികൾ", "ശമ്പളം", "പാക്കേജ്", "placement undoo", "job kittuo", "placement ethra percentage", "highest package ethra", "companies enthokkeyanu", "placement rate ethra", "job enthu", "salary ethra"],
     "answer_facts": {
       "Placement Cell": "Dedicated Training & Placement Cell with full-time coordinator",
       "Companies Visited": "TCS, Infosys, Wipro, Tech Mahindra, Cognizant, Bosch, BYJU'S, etc.",
@@ -232,7 +232,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 8,
-    "tags": ["location", "directions", "map", "സ്ഥലം", "വഴി", "എവിടെ", "എങ്ങനെ എത്തും", "കാംപസ്"],
+    "tags": ["location", "directions", "map", "സ്ഥലം", "വഴി", "എവിടെ", "എങ്ങനെ എത്തും", "കാംപസ്", "college evide", "college evideyanu", "lbs evide", "location enthu", "address enthu", "campus evide", "engane ethum", "route enthu"],
     "answer_facts": {
       "Full Name": "Lal Bahadur Shastri College of Engineering, Kasaragod",
       "Address": "LBS College of Engineering, Muliyar, Kasaragod District, Kerala - 671542",
@@ -248,7 +248,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 9,
-    "tags": ["timings", "hours", "schedule", "സമയം", "എപ്പോൾ തുറക്കും", "ക്ലാസ് സമയം", "ഓഫീസ് സമയം"],
+    "tags": ["timings", "hours", "schedule", "സമയം", "എപ്പോൾ തുറക്കും", "ക്ലാസ് സമയം", "ഓഫീസ് സമയം", "timing enthu", "time enthu", "eppol thurakum", "college time enthu", "class time enthu", "office time enthu", "samayam enthu"],
     "answer_facts": {
       "College Hours": "9:00 AM to 4:30 PM (Monday to Friday)",
       "Office Hours": "9:00 AM to 5:00 PM (Monday to Friday), 9:00 AM to 1:00 PM (Saturday)",
@@ -263,7 +263,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 10,
-    "tags": ["sports", "games", "gym", "സ്പോർട്സ്", "കളികൾ", "ജിം", "ക്രിക്കറ്റ്", "ഫുട്ബോൾ"],
+    "tags": ["sports", "games", "gym", "സ്പോർട്സ്", "കളികൾ", "ജിം", "ക്രിക്കറ്റ്", "ഫുട്ബോൾ", "sports undoo", "gym undoo", "ground evide", "football ground evide", "cricket ground evide", "kalikkaan pattuo"],
     "answer_facts": {
       "Main Stadium": "College main stadium on campus",
       "Multi-sports Area": "Multi-sports play space available",
@@ -1503,7 +1503,7 @@ serve(async (req) => {
 
     // Detect language with improved patterns
     const hasMalayalam = /[\u0D00-\u0D7F]/.test(message);
-    const manglishPatterns = /\b(enthu|aanu|undoo|illa|venam|pokaam|vannoo|cheyyam|cheythu|eppol|evide|evideyanu|enne|ninne|njan|ningal|avar|ath|ithu|athu|engane|enthaanu|enikkum|njangal|nammal|kollaam|pattum|patilla|aaranu|edukkam|veno|vende|nokku|paranju|parayoo|ariyaam|ariyilla|evidunnu|ethra|entho|athe|namaskaram|nanni|sheriyaanu|angane|ingane|avalude|ivide|avide|kittum|kittilla|padikkam|padikkunnu|thudangi|kazhinjhu|varaam|varum|povaam|povum|cheyyan|cheyyanam|cheyth|koodi|koode|kure|valare|adipoli|pwoli|mathi|mathiyayo|venam|vendaa|onnu|randu|moonu|naalu|anchu|puthiya|pazhaya|nalla|mosham|kollam|ningalkku|enikku|avarku|ivarkku|athinnu|ithinnu|kazhinju|kazhiyum|parayan|parayaan|ariyaan|ariyilla)\b/i;
+    const manglishPatterns = /\b(enthu|enth|entha|enthanu|enthokkeyanu|enthokkeyaanu|aanu|aana|aanallo|undoo|und|undu|undallo|illa|illallo|venam|veno|vende|vendaa|pokaam|pokam|vannoo|vannu|cheyyam|cheyyaam|cheyyanam|cheyyumo|cheythu|cheyth|eppol|eppozhanu|evide|evideyanu|evidaanu|evidya|evidyanu|evidunnu|evidunna|enne|ninne|njan|njaan|ningal|ningalkku|avar|avarku|ath|athu|ithu|engane|enganaanu|enthaanu|enikkum|enikku|njangal|nammal|namuk|kollaam|kollam|pattum|pattumo|patilla|aaranu|aara|aaraa|aaraanu|ariyaam|ariyam|ariyumo|ariyilla|ariyaan|edukkam|nokku|nokkam|nokko|paranju|parayoo|parayo|parayaam|parayan|parayaan|ethra|ethranu|ethraaanu|entho|athe|namaskaram|nanni|sheriyaanu|sheri|angane|ingane|avalude|ivide|avide|kittum|kittuo|kittumo|kittilla|padikkam|padikkunnu|thudangi|kazhinjhu|kazhinju|kazhiyum|varaam|varum|povaam|povum|koodi|koode|kure|valare|adipoli|pwoli|mathi|mathram|mathiyayo|mathiyo|onnu|randu|moonu|naalu|anchu|puthiya|pazhaya|nalla|mosham|ivarkku|athinnu|ithinnu|enganeyanu|enthinanu|enthinaanu|evidanu|evidaana|undaavum|undaakum|undaavo|policu|thurannu|thurakum|thurakumo|adakkum|adakkunnu|tharanam|tharaam|tharam|tharo|arinjukoodo|arinjukodo|paranjukoodo|paranjukodo|evideyaanu|evideyaana|evidunnaanu)\b/i;
     const hasManglishPatterns = manglishPatterns.test(message);
 
     let detectedLanguage = 'english';
@@ -1515,50 +1515,44 @@ serve(async (req) => {
 
     console.log('Detected language:', detectedLanguage);
 
-    // Priority lookup: Try to fetch from official website first
-    let websiteData: string | null = null;
-    const websiteUrl = getRelevantWebsiteUrl(message);
-
-    if (websiteUrl) {
-      console.log('Attempting priority fetch from:', websiteUrl);
-      websiteData = await fetchFromWebsite(websiteUrl);
-    }
-
-    // Build dynamic context with website data priority
-    let dynamicContext = COLLEGE_CONTEXT;
-
-    if (websiteData) {
-      const websitePrioritySection = `
-⚠️⚠️⚠️ PRIORITY LIVE DATA FROM OFFICIAL WEBSITE (lbscek.ac.in) ⚠️⚠️⚠️
-The following data was fetched LIVE from the official college website. 
-USE THIS DATA FIRST before using the database below. This is the most current information:
-
-=== LIVE WEBSITE DATA START ===
-${websiteData}
-=== LIVE WEBSITE DATA END ===
-
-`;
-      // Insert website data at the beginning of context (after initial instructions)
-      dynamicContext = COLLEGE_CONTEXT.replace(
-        'DETAILED COLLEGE INFORMATION (VERIFIED DATABASE):',
-        `${websitePrioritySection}
-
-FALLBACK DATABASE (use only if website data doesn't answer the question):
-DETAILED COLLEGE INFORMATION (VERIFIED DATABASE):`
-      );
-      console.log('Added live website data to context');
-    }
-
-    // Find and format relevant FAQs based on the user's message
+    // PRIORITY 1: Find relevant FAQs from database FIRST
     const relevantFAQs = findRelevantFAQs(message);
     const relevantFAQsContext = formatRelevantFAQs(relevantFAQs);
 
     console.log(`Found ${relevantFAQs.length} relevant FAQs for query:`, message.substring(0, 50));
 
-    // Build conversation messages with better context
-    // Add the relevant FAQs as a special instruction right before the user message
+    // PRIORITY 2: Only fetch from website if database has NO relevant matches (fallback)
+    let websiteData: string | null = null;
+    let websiteUrl: string | null = null;
+    if (relevantFAQs.length === 0) {
+      websiteUrl = getRelevantWebsiteUrl(message);
+      if (websiteUrl) {
+        console.log('No database match found. Fetching fallback from website:', websiteUrl);
+        websiteData = await fetchFromWebsite(websiteUrl);
+      }
+    }
+
+    // Build dynamic context - Database is primary, website is fallback
+    let dynamicContext = COLLEGE_CONTEXT;
+
+    if (websiteData) {
+      const websiteFallbackSection = `
+⚠️ FALLBACK DATA FROM OFFICIAL WEBSITE (lbscek.ac.in) ⚠️
+The database did not have relevant information. The following data was fetched from the official website as a fallback:
+
+=== WEBSITE DATA START ===
+${websiteData}
+=== WEBSITE DATA END ===
+
+`;
+      // Insert website data after the database section
+      dynamicContext = COLLEGE_CONTEXT + '\n\n' + websiteFallbackSection;
+      console.log('Added website data as fallback to context');
+    }
+
+    // Build conversation messages with database data as primary source
     const relevantDataInstruction = relevantFAQs.length > 0
-      ? `\n\n[SYSTEM NOTE: Based on the user's query, here is the MOST RELEVANT data from our database. USE THIS TO ANSWER:${relevantFAQsContext}]\n\n`
+      ? `\n\n[SYSTEM NOTE: Based on the user's query, here is the MOST RELEVANT data from our VERIFIED DATABASE. USE THIS TO ANSWER - this is the primary source of truth:${relevantFAQsContext}]\n\n`
       : '';
 
     const messages = [
