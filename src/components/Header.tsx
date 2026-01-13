@@ -5,26 +5,67 @@ import { cn } from "@/lib/utils";
 const Header = () => {
   const [isDark, setIsDark] = useState(false);
 
+  // Update theme-color meta tag for iOS Safari
+  const updateThemeColor = (dark: boolean) => {
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]:not([media])')
+      || document.createElement('meta');
+    if (!themeColorMeta.getAttribute('name')) {
+      themeColorMeta.setAttribute('name', 'theme-color');
+      document.head.appendChild(themeColorMeta);
+    }
+    themeColorMeta.setAttribute('content', dark ? '#1a3a32' : '#f9f7f2');
+  };
+
+  // Apply theme with iOS Safari compatibility
+  const applyTheme = (dark: boolean) => {
+    const root = document.documentElement;
+
+    if (dark) {
+      root.classList.add("dark");
+      root.style.colorScheme = "dark";
+    } else {
+      root.classList.remove("dark");
+      root.style.colorScheme = "light";
+    }
+
+    // Update theme-color for iOS Safari address bar
+    updateThemeColor(dark);
+
+    // Force iOS Safari to repaint by triggering a layout change
+    // This fixes the issue where CSS variables don't update on iOS
+    root.style.display = 'none';
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    root.offsetHeight; // Trigger reflow
+    root.style.display = '';
+  };
+
   useEffect(() => {
     // Check for saved preference or system preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    }
+    const shouldBeDark = savedTheme === "dark" || (!savedTheme && prefersDark);
+    setIsDark(shouldBeDark);
+    applyTheme(shouldBeDark);
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem("theme")) {
+        setIsDark(e.matches);
+        applyTheme(e.matches);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
+    localStorage.setItem("theme", newIsDark ? "dark" : "light");
+    applyTheme(newIsDark);
   };
 
   return (

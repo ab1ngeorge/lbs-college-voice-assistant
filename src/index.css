@@ -135,6 +135,10 @@
 
   html {
     scroll-behavior: smooth;
+    color-scheme: light dark;
+    /* iOS Safari dark mode support */
+    -webkit-tap-highlight-color: transparent;
+    /* Remove iOS tap highlight */
   }
 
   body {
@@ -149,6 +153,7 @@
 }
 
 @layer components {
+
   /* Voice button animations */
   .voice-pulse {
     animation: voice-pulse 2s ease-in-out infinite;
@@ -167,10 +172,21 @@
     animation: wave 1.2s ease-in-out infinite;
   }
 
-  .wave-bar:nth-child(2) { animation-delay: 0.1s; }
-  .wave-bar:nth-child(3) { animation-delay: 0.2s; }
-  .wave-bar:nth-child(4) { animation-delay: 0.3s; }
-  .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+  .wave-bar:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .wave-bar:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+
+  .wave-bar:nth-child(4) {
+    animation-delay: 0.3s;
+  }
+
+  .wave-bar:nth-child(5) {
+    animation-delay: 0.4s;
+  }
 
   /* Glass morphism card */
   .glass-card {
@@ -215,12 +231,16 @@
 }
 
 @layer utilities {
+
   /* Animations */
   @keyframes voice-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(1);
       box-shadow: 0 0 0 0 hsl(var(--kerala-green) / 0.4);
     }
+
     50% {
       transform: scale(1.05);
       box-shadow: 0 0 0 20px hsl(var(--kerala-green) / 0);
@@ -228,10 +248,13 @@
   }
 
   @keyframes voice-listening {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(1);
       box-shadow: 0 0 0 0 hsl(var(--kerala-gold) / 0.5);
     }
+
     50% {
       transform: scale(1.08);
       box-shadow: 0 0 0 25px hsl(var(--kerala-gold) / 0);
@@ -239,27 +262,36 @@
   }
 
   @keyframes voice-speaking {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(1);
     }
+
     50% {
       transform: scale(1.03);
     }
   }
 
   @keyframes wave {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scaleY(0.5);
     }
+
     50% {
       transform: scaleY(1);
     }
   }
 
   @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: translateY(0);
     }
+
     50% {
       transform: translateY(-10px);
     }
@@ -270,6 +302,7 @@
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);

@@ -63,6 +63,8 @@ const VoiceAssistant = () => {
   const [pendingAudio, setPendingAudio] = useState<{ text: string; messageId: string; language?: "malayalam" | "manglish" | "english" } | null>(null);
   const [showLocationPanel, setShowLocationPanel] = useState(false);
   const [pendingLocationQuery, setPendingLocationQuery] = useState<string | null>(null);
+  const [isIOSDevice, setIsIOSDevice] = useState(false);
+  const [audioUnlocked, setAudioUnlocked] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
@@ -70,36 +72,95 @@ const VoiceAssistant = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const currentVoiceStatusRef = useRef<VoiceStatus>("idle");
   const isAudioPlayingRef = useRef<boolean>(false);
+  // Persistent audio element for iOS - created once and reused
+  const iosAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const {
     getCurrentPosition,
   } = useGeolocation();
+
+  // Detect iOS device
+  useEffect(() => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    setIsIOSDevice(isIOS);
+
+    // Create persistent audio element for iOS
+    if (isIOS && !iosAudioRef.current) {
+      const audio = document.createElement('audio');
+      audio.setAttribute('playsinline', 'true');
+      audio.setAttribute('webkit-playsinline', 'true');
+      audio.preload = 'auto';
+      audio.volume = 1.0;
+      // Add to DOM but hidden - iOS sometimes needs this
+      audio.style.display = 'none';
+      document.body.appendChild(audio);
+      iosAudioRef.current = audio;
+    }
+
+    return () => {
+      if (iosAudioRef.current) {
+        iosAudioRef.current.remove();
+        iosAudioRef.current = null;
+      }
+    };
+  }, []);
 
   // Keep ref in sync with state
   useEffect(() => {
     currentVoiceStatusRef.current = voiceStatus;
   }, [voiceStatus]);
 
-  // Initialize AudioContext on first user interaction (required for iOS/mobile)
+  // Initialize AudioContext and unlock audio for iOS on first user interaction
   const initAudioContext = useCallback(() => {
     try {
+      // Create or resume AudioContext
       if (!audioContextRef.current) {
         const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
         if (AudioContextClass) {
           audioContextRef.current = new AudioContextClass();
         }
       }
+
       if (audioContextRef.current?.state === 'suspended') {
         audioContextRef.current.resume();
+      }
+
+      // iOS audio unlock - play a silent sound to unlock audio playback
+      if (isIOSDevice && !audioUnlocked && iosAudioRef.current) {
+        // Create a tiny silent audio to unlock
+        const silentAudio = iosAudioRef.current;
+        silentAudio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+        silentAudio.play().then(() => {
+          setAudioUnlocked(true);
+          console.log('iOS audio unlocked successfully');
+        }).catch((e) => {
+          console.log('iOS audio unlock pending...', e);
+        });
       }
     } catch (e) {
       console.log('AudioContext init error:', e);
     }
-  }, []);
+  }, [isIOSDevice, audioUnlocked]);
 
-  // Stop audio helper with proper cleanup
+  // Stop audio helper with proper cleanup - handles iOS persistent element
   const stopAudio = useCallback(() => {
-    if (audioRef.current) {
+    // Handle iOS persistent audio element
+    if (iosAudioRef.current) {
+      try {
+        iosAudioRef.current.pause();
+        iosAudioRef.current.currentTime = 0;
+        // Don't clear src on iOS element - just pause it
+        iosAudioRef.current.onended = null;
+        iosAudioRef.current.onerror = null;
+        iosAudioRef.current.oncanplaythrough = null;
+      } catch (e) {
+        console.log('iOS audio cleanup error:', e);
+      }
+    }
+
+    // Handle regular audio element (non-iOS)
+    if (audioRef.current && audioRef.current !== iosAudioRef.current) {
       try {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
@@ -110,6 +171,7 @@ const VoiceAssistant = () => {
       }
       audioRef.current = null;
     }
+
     isAudioPlayingRef.current = false;
     setVoiceStatus("idle");
     setPlayingMessageId(null);
@@ -134,7 +196,7 @@ const VoiceAssistant = () => {
     };
   }, [stopAudio]);
 
-  // Initialize speech recognition
+  // Initialize speech recognition with iOS-specific handling
   const initSpeechRecognition = useCallback(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognitionAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -142,22 +204,43 @@ const VoiceAssistant = () => {
     if (!SpeechRecognitionAPI) {
       toast({
         variant: "destructive",
-        title: "Browser not supported",
-        description: "Please use Chrome, Edge, or Safari for voice input.",
+        title: isIOSDevice ? "Voice not available on this iOS version" : "Browser not supported",
+        description: isIOSDevice
+          ? "Speech recognition requires iOS 14.5+ with Safari. Please use the text input instead."
+          : "Please use Chrome, Edge, or Safari for voice input.",
       });
       return null;
     }
 
-    const recognition = new SpeechRecognitionAPI();
+    try {
+      const recognition = new SpeechRecognitionAPI();
 
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = "ml-IN"; // Malayalam, but also recognizes English
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-    return recognition;
-  }, [toast]);
+      // iOS Safari works better with these settings
+      if (isIOSDevice) {
+        recognition.lang = "en-US"; // Start with English for better iOS compatibility
+      } else {
+        recognition.lang = "ml-IN"; // Malayalam, but also recognizes English
+      }
 
-  // Play audio using Sarvam AI TTS - improved with better error handling
+      return recognition;
+    } catch (e) {
+      console.error('Speech recognition init error:', e);
+      toast({
+        variant: "destructive",
+        title: "Voice initialization failed",
+        description: isIOSDevice
+          ? "Could not start voice input on iOS. Please use the text input."
+          : "Could not initialize speech recognition. Please try again.",
+      });
+      return null;
+    }
+  }, [toast, isIOSDevice]);
+
+  // Play audio using Sarvam AI TTS - iOS compatible version
   const playAudio = useCallback(async (text: string, messageId: string, language?: "malayalam" | "manglish" | "english", isAutoPlay = false) => {
     // Prevent multiple simultaneous plays
     if (isAudioPlayingRef.current && audioRef.current) {
@@ -199,18 +282,32 @@ const VoiceAssistant = () => {
       const blob = new Blob([bytes], { type: 'audio/wav' });
       const audioUrl = URL.createObjectURL(blob);
 
-      // Create audio element with iOS-friendly settings
-      const audio = new Audio();
-      audio.preload = 'auto';
-      (audio as unknown as { playsInline: boolean }).playsInline = true;
-      (audio as unknown as { webkitPlaysInline: boolean }).webkitPlaysInline = true;
+      // Use the persistent iOS audio element if on iOS, otherwise create new
+      let audio: HTMLAudioElement;
+      if (isIOSDevice && iosAudioRef.current) {
+        audio = iosAudioRef.current;
+        // Reset any previous event handlers
+        audio.onended = null;
+        audio.onerror = null;
+        audio.oncanplaythrough = null;
+      } else {
+        audio = new Audio();
+        audio.preload = 'auto';
+        // Set iOS-friendly attributes
+        audio.setAttribute('playsinline', 'true');
+        audio.setAttribute('webkit-playsinline', 'true');
+      }
+
       audioRef.current = audio;
 
       const cleanup = () => {
         isAudioPlayingRef.current = false;
         setVoiceStatus("idle");
         setPlayingMessageId(null);
-        audioRef.current = null;
+        // Don't null out iosAudioRef - it's persistent
+        if (!isIOSDevice) {
+          audioRef.current = null;
+        }
         URL.revokeObjectURL(audioUrl);
       };
 
@@ -222,19 +319,44 @@ const VoiceAssistant = () => {
       audio.onerror = (e) => {
         console.error("Audio playback error:", e);
         cleanup();
+        if (!isAutoPlay) {
+          toast({
+            variant: "destructive",
+            title: "Audio Error",
+            description: isIOSDevice
+              ? "Audio playback failed on iOS. Try tapping the play button again."
+              : "Failed to play audio response. Please try again.",
+          });
+        }
       };
 
-      // Set source
+      // Set source and load
       audio.src = audioUrl;
 
-      // Load and play audio
-      audio.src = audioUrl;
+      // For iOS, wait for canplaythrough before attempting play
+      if (isIOSDevice) {
+        await new Promise<void>((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error('Audio load timeout'));
+          }, 10000);
 
-      // Use simpler approach - just load and play
-      audio.load();
+          audio.oncanplaythrough = () => {
+            clearTimeout(timeout);
+            resolve();
+          };
 
-      // Small delay to ensure audio is ready
-      await new Promise(resolve => setTimeout(resolve, 100));
+          audio.onerror = () => {
+            clearTimeout(timeout);
+            reject(new Error('Audio load error'));
+          };
+
+          audio.load();
+        });
+      } else {
+        audio.load();
+        // Small delay for non-iOS to ensure audio is ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
 
       // Try to play
       try {
@@ -250,8 +372,10 @@ const VoiceAssistant = () => {
           setPendingAudio({ text, messageId, language });
           cleanup();
           toast({
-            title: "Tap to play audio",
-            description: "Tap the speaker button to hear the response.",
+            title: isIOSDevice ? "Tap to hear response" : "Tap to play audio",
+            description: isIOSDevice
+              ? "Tap the microphone button to hear the response. iOS requires user interaction for audio."
+              : "Tap the speaker button to hear the response.",
           });
         } else {
           cleanup();
@@ -267,11 +391,13 @@ const VoiceAssistant = () => {
         toast({
           variant: "destructive",
           title: "Audio Error",
-          description: "Failed to play audio response. Please try again.",
+          description: isIOSDevice
+            ? "Audio failed on iOS. Please tap to try again."
+            : "Failed to play audio response. Please try again.",
         });
       }
     }
-  }, [stopAudio, toast, initAudioContext]);
+  }, [stopAudio, toast, initAudioContext, isIOSDevice]);
 
   // Handle sending message to AI
   const sendMessage = useCallback(async (text: string) => {
@@ -478,11 +604,37 @@ const VoiceAssistant = () => {
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error("Speech recognition error:", event.error);
       setVoiceStatus("idle");
-      if (event.error !== "aborted" && event.error !== "no-speech") {
+
+      // iOS-specific error handling
+      if (event.error === "not-allowed") {
+        toast({
+          variant: "destructive",
+          title: "Microphone Permission Required",
+          description: isIOSDevice
+            ? "Please allow microphone access in iOS Settings > Safari > Microphone."
+            : "Please allow microphone access to use voice input.",
+        });
+      } else if (event.error === "network") {
+        toast({
+          variant: "destructive",
+          title: "Network Error",
+          description: "Speech recognition requires an internet connection.",
+        });
+      } else if (event.error === "service-not-allowed") {
+        toast({
+          variant: "destructive",
+          title: "Service Unavailable",
+          description: isIOSDevice
+            ? "Speech recognition is not available on this iOS device. Please use text input."
+            : "Speech recognition service is not available. Please try again.",
+        });
+      } else if (event.error !== "aborted" && event.error !== "no-speech") {
         toast({
           variant: "destructive",
           title: "Voice Error",
-          description: "Could not recognize speech. Please try again.",
+          description: isIOSDevice
+            ? "Voice input failed on iOS. Try using the text input instead."
+            : "Could not recognize speech. Please try again.",
         });
       }
     };
@@ -494,8 +646,21 @@ const VoiceAssistant = () => {
       }
     };
 
-    recognition.start();
-  }, [voiceStatus, initSpeechRecognition, sendMessage, toast, stopAudio, initAudioContext, pendingAudio, playAudio]);
+    // Try to start recognition with iOS error handling
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error("Failed to start speech recognition:", e);
+      setVoiceStatus("idle");
+      toast({
+        variant: "destructive",
+        title: "Voice Error",
+        description: isIOSDevice
+          ? "Could not start voice input on iOS. Please use the text input below."
+          : "Could not start voice input. Please try again.",
+      });
+    }
+  }, [voiceStatus, initSpeechRecognition, sendMessage, toast, stopAudio, initAudioContext, pendingAudio, playAudio, isIOSDevice]);
 
   // Handle suggested question selection
   const handleQuestionSelect = (question: string) => {
