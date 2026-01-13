@@ -250,14 +250,14 @@ const VoiceAssistant = () => {
 
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
+      recognition.maxAlternatives = 3; // Get more alternatives for better accuracy
 
-      // iOS Safari works better with these settings
-      if (isIOSDevice) {
-        recognition.lang = "en-US"; // Start with English for better iOS compatibility
-      } else {
-        recognition.lang = "ml-IN"; // Malayalam, but also recognizes English
-      }
+      // Use Malayalam language for both iOS and other devices
+      // iOS Safari 14.5+ supports Malayalam speech recognition
+      // The recognition will also understand English when spoken
+      recognition.lang = "ml-IN";
+
+      console.log('Speech recognition initialized with language: ml-IN');
 
       return recognition;
     } catch (e) {
@@ -685,7 +685,15 @@ const VoiceAssistant = () => {
           title: "Network Error",
           description: "Speech recognition requires an internet connection.",
         });
-      } else if (event.error === "service-not-allowed") {
+      } else if (event.error === "language-not-supported") {
+        toast({
+          variant: "destructive",
+          title: "Language Not Supported",
+          description: isIOSDevice
+            ? "Malayalam voice input may require adding Malayalam keyboard in iOS Settings > General > Keyboard > Keyboards."
+            : "Malayalam language is not supported on this device. Please try English or use text input.",
+        });
+      } else if (event.error === "service-not-allowed" || event.error === "audio-capture") {
         toast({
           variant: "destructive",
           title: "Service Unavailable",
@@ -698,7 +706,7 @@ const VoiceAssistant = () => {
           variant: "destructive",
           title: "Voice Error",
           description: isIOSDevice
-            ? "Voice input failed on iOS. Try using the text input instead."
+            ? "Voice input failed on iOS. Ensure Malayalam keyboard is installed or try English. Use text input as fallback."
             : "Could not recognize speech. Please try again.",
         });
       }
