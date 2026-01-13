@@ -353,6 +353,39 @@ const COLLEGE_FAQ_DATA = [
     }
   },
   {
+    "id": 26,
+    "tags": ["dean", "academic dean", "student affairs dean", "ug dean", "അക്കാദമിക് ഡീൻ", "ഡീൻ", "ഡീൻ ആരാണ്", "അക്കാദമിക് ഡീൻ ആരാണ്", "dean aaru", "dean aaranu"],
+    "answer_facts": {
+      "UG Dean (Academic)": "Dr. Praveen Kumar K",
+      "Academic Dean Department": "Professor, Computer Science & Engineering (CSE)",
+      "Academic Dean Phone": "9447375156",
+      "Academic Dean Email": "praveenkodoth@lbscek.ac.in",
+      "UG Dean (Student Affairs)": "Dr. Vinodu George",
+      "Student Affairs Dean Department": "Professor, Computer Science & Engineering (CSE)",
+      "Student Affairs Dean Phone": "9447386534",
+      "Student Affairs Dean Email": "vinodu@lbscek.ac.in",
+      "Malayalam_Academic_Dean": "അക്കാദമിക് ഡീൻ (UG): ഡോ. പ്രവീൺ കുമാർ കെ. CSE വിഭാഗം പ്രൊഫസർ. ഫോൺ: 9447375156. ഇമെയിൽ: praveenkodoth@lbscek.ac.in",
+      "Malayalam_Student_Dean": "സ്റ്റുഡന്റ് അഫയേഴ്സ് ഡീൻ (UG): ഡോ. വിനോദു ജോർജ്. CSE വിഭാഗം പ്രൊഫസർ. ഫോൺ: 9447386534",
+      "Manglish": "Academic Dean: Dr. Praveen Kumar K aanu. CSE Professor. Phone: 9447375156. Student Affairs Dean: Dr. Vinodu George aanu."
+    }
+  },
+  {
+    "id": 27,
+    "tags": ["hod", "head of department", "department head", "മേധാവി", "വിഭാഗം മേധാവി", "HOD ആരാണ്", "cse hod", "ece hod", "eee hod", "me hod", "civil hod", "കമ്പ്യൂട്ടർ സയൻസ് മേധാവി", "കമ്പ്യൂട്ടർ സയൻസ് ഡിപ്പാർട്ട്മെന്റ് മേധാവി", "cse department head"],
+    "answer_facts": {
+      "CSE Department HOD": "Dr. Manoj Kumar G (Professor). Phone: 8547458075, Email: manojkumar@lbscek.ac.in",
+      "IT Department HOD": "Dr. Anver S R (Professor)",
+      "ECE Department HOD": "Dr. Mary Reena K E (Professor)",
+      "EEE Department HOD": "Prof. Jayakumar M (Associate Professor)",
+      "Mechanical Department HOD": "Dr. Manoj Kumar C V (Associate Professor)",
+      "Civil Department HOD": "Dr. Anjali M S (Associate Professor)",
+      "Applied Science HOD": "Prof. Vineesh Kumar K V (Assistant Professor, Mathematics)",
+      "Malayalam_CSE_HOD": "കമ്പ്യൂട്ടർ സയൻസ് വിഭാഗം HOD: ഡോ. മനോജ് കുമാർ ജി (പ്രൊഫസർ). ഫോൺ: 8547458075. ഇമെയിൽ: manojkumar@lbscek.ac.in",
+      "Malayalam_All_HOD": "CSE HOD: ഡോ. മനോജ് കുമാർ ജി. ECE HOD: ഡോ. മേരി റീന. EEE HOD: പ്രൊഫ. ജയകുമാർ. ME HOD: ഡോ. മനോജ് കുമാർ സി വി. Civil HOD: ഡോ. അഞ്ജലി.",
+      "Manglish": "CSE HOD: Dr. Manoj Kumar G. ECE HOD: Dr. Mary Reena. EEE HOD: Prof. Jayakumar. ME HOD: Dr. Manoj Kumar CV. Civil HOD: Dr. Anjali."
+    }
+  },
+  {
     "id": 32,
     "tags": ["mca", "pg", "admissions"],
     "answer_facts": {
