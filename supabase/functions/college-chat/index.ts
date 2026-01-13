@@ -487,7 +487,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 27,
-    "tags": ["hod", "head of department", "department head", "മേധാവി", "വിഭാഗം മേധാവി", "HOD ആരാണ്", "cse hod", "ece hod", "eee hod", "me hod", "civil hod", "കമ്പ്യൂട്ടർ സയൻസ് മേധാവി", "കമ്പ്യൂട്ടർ സയൻസ് ഡിപ്പാർട്ട്മെന്റ് മേധാവി", "cse department head"],
+    "tags": ["hod", "head of department", "department head", "മേധാവി", "വിഭാഗം മേധാവി", "HOD ആരാണ്", "cse hod", "ece hod", "eee hod", "me hod", "civil hod", "കമ്പ്യൂട്ടർ സയൻസ് മേധാവി", "കമ്പ്യൂട്ടർ സയൻസ് ഡിപ്പാർട്ട്മെന്റ് മേധാവി", "cse department head", "എച്ച് ഡി", "എച്ച്ഡി", "എച്ച്ഓഡി", "സിഎസ്", "സിഎസി", "സിഎസ്ഇ", "സിഎസ് എച്ച്ഡി", "സിഎസിലെ", "സിഎസ് ഡിപ്പാർട്ട്മെന്റ്", "hod peru", "hod aaru", "hod aaranu", "എച്ച്ഡിയുടെ പേര്"],
     "answer_facts": {
       "CSE Department HOD": "Dr. Manoj Kumar G (Professor). Phone: 8547458075, Email: manojkumar@lbscek.ac.in",
       "IT Department HOD": "Dr. Anver S R (Professor)",
@@ -1180,26 +1180,27 @@ const formatFAQData = () => {
 
 // Common Manglish synonyms/variations for better matching
 const MANGLISH_SYNONYMS: Record<string, string[]> = {
-  'hod': ['hod', 'head', 'department head', 'vibhagam medhavi', 'medhavi', 'head of department'],
-  'dean': ['dean', 'academic dean', 'student affairs dean', 'deean', 'diaan'],
-  'principal': ['principal', 'head', 'prinsipal', 'college head', 'princi'],
-  'fee': ['fee', 'fees', 'panam', 'ethra', 'charge', 'cost', 'phee', 'fii'],
-  'hostel': ['hostel', 'boarding', 'accommodation', 'thamasu', 'stay', 'room'],
-  'bus': ['bus', 'transport', 'vehicle', 'route', 'timing'],
-  'library': ['library', 'book', 'read', 'pustakam', 'librerry'],
-  'canteen': ['canteen', 'food', 'eat', 'lunch', 'bhakshyam', 'cafe', 'mess'],
-  'placement': ['placement', 'job', 'campus', 'recruit', 'career', 'company'],
-  'admission': ['admission', 'apply', 'join', 'enter', 'keam', 'counselling'],
-  'cse': ['cse', 'computer', 'cs', 'software', 'coding', 'programming', 'it'],
-  'ece': ['ece', 'electronics', 'communication', 'ec'],
-  'eee': ['eee', 'electrical', 'ee'],
-  'mechanical': ['mechanical', 'me', 'mech', 'workshop'],
-  'civil': ['civil', 'ce', 'construction', 'building'],
-  'faculty': ['faculty', 'teacher', 'professor', 'staff', 'sir', 'madam'],
-  'club': ['club', 'clubs', 'association', 'society', 'iedc'],
-  'location': ['location', 'address', 'where', 'evide', 'evideyanu', 'place', 'venue'],
-  'timing': ['timing', 'time', 'schedule', 'hours', 'when', 'eppol', 'samayam'],
-  'contact': ['contact', 'phone', 'call', 'number', 'email', 'vilikku'],
+  'hod': ['hod', 'head', 'department head', 'vibhagam medhavi', 'medhavi', 'head of department', 'എച്ച് ഡി', 'എച്ച്ഡി', 'എച്ച്ഓഡി', 'മേധാവി', 'വിഭാഗം മേധാവി'],
+  'dean': ['dean', 'academic dean', 'student affairs dean', 'deean', 'diaan', 'ഡീൻ', 'അക്കാദമിക് ഡീൻ'],
+  'principal': ['principal', 'head', 'prinsipal', 'college head', 'princi', 'പ്രിൻസിപ്പൽ'],
+  'fee': ['fee', 'fees', 'panam', 'ethra', 'charge', 'cost', 'phee', 'fii', 'ഫീസ്'],
+  'hostel': ['hostel', 'boarding', 'accommodation', 'thamasu', 'stay', 'room', 'ഹോസ്റ്റൽ'],
+  'bus': ['bus', 'transport', 'vehicle', 'route', 'timing', 'ബസ്'],
+  'library': ['library', 'book', 'read', 'pustakam', 'librerry', 'ലൈബ്രറി'],
+  'canteen': ['canteen', 'food', 'eat', 'lunch', 'bhakshyam', 'cafe', 'mess', 'കാന്റീൻ'],
+  'placement': ['placement', 'job', 'campus', 'recruit', 'career', 'company', 'പ്ലേസ്മെന്റ്'],
+  'admission': ['admission', 'apply', 'join', 'enter', 'keam', 'counselling', 'അഡ്മിഷൻ'],
+  'cse': ['cse', 'computer', 'cs', 'software', 'coding', 'programming', 'it', 'സിഎസ്', 'സിഎസി', 'സിഎസ്ഇ', 'സിഎസിലെ', 'കമ്പ്യൂട്ടർ സയൻസ്'],
+  'ece': ['ece', 'electronics', 'communication', 'ec', 'ഇസിഇ'],
+  'eee': ['eee', 'electrical', 'ee', 'ഇഇഇ'],
+  'mechanical': ['mechanical', 'me', 'mech', 'workshop', 'മെക്കാനിക്കൽ'],
+  'civil': ['civil', 'ce', 'construction', 'building', 'സിവിൽ'],
+  'faculty': ['faculty', 'teacher', 'professor', 'staff', 'sir', 'madam', 'ഫാക്കൽറ്റി'],
+  'club': ['club', 'clubs', 'association', 'society', 'iedc', 'ക്ലബ്'],
+  'location': ['location', 'address', 'where', 'evide', 'evideyanu', 'place', 'venue', 'എവിടെ'],
+  'timing': ['timing', 'time', 'schedule', 'hours', 'when', 'eppol', 'samayam', 'സമയം'],
+  'contact': ['contact', 'phone', 'call', 'number', 'email', 'vilikku', 'ഫോൺ'],
+  'name': ['name', 'peru', 'പേര്', 'പേരെന്താണ്', 'aaranu', 'aaru'],
 };
 
 // Find relevant FAQs based on user message keywords with improved matching
@@ -1579,6 +1580,98 @@ serve(async (req) => {
     }
 
     console.log('Processing message:', message.substring(0, 100));
+
+    // DIRECT ANSWER FUNCTION - Check for common queries and return EXACT database answers
+    // This bypasses AI to prevent hallucination for critical queries
+    const getDirectAnswer = (msg: string): { answer: string; language: string } | null => {
+      const lowerMsg = msg.toLowerCase();
+
+      // CSE HOD queries - multiple patterns
+      if ((lowerMsg.includes('cse') || lowerMsg.includes('computer') || lowerMsg.includes('സിഎസ') || lowerMsg.includes('കമ്പ്യൂട്ടർ')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്') || lowerMsg.includes('ഡി'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'കമ്പ്യൂട്ടർ സയൻസ് ആൻഡ് എഞ്ചിനീയറിംഗ് (CSE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മനോജ് കുമാർ ജി (Dr. Manoj Kumar G) ആണ്. അദ്ദേഹം പ്രൊഫസറാണ്. ഫോൺ: 8547458075, ഇമെയിൽ: manojkumar@lbscek.ac.in', language: 'malayalam' };
+        }
+        return { answer: 'The Head of Department (HOD) of Computer Science and Engineering (CSE) is Dr. Manoj Kumar G. He is a Professor in the department. Phone: 8547458075, Email: manojkumar@lbscek.ac.in', language: 'english' };
+      }
+
+      // Principal queries
+      if (lowerMsg.includes('principal') || lowerMsg.includes('പ്രിൻസിപ്പൽ') || lowerMsg.includes('prinsipal') || lowerMsg.includes('princi')) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'LBS കോളേജ് ഓഫ് എഞ്ചിനീയറിംഗിന്റെ പ്രിൻസിപ്പൽ ഡോ. മുഹമ്മദ് ഷെക്കൂർ ടി (Dr. Mohammad Shekoor T) ആണ്. ഫോൺ: 04994-250290, ഇമെയിൽ: principal@lbscek.ac.in', language: 'malayalam' };
+        }
+        return { answer: 'The Principal of LBS College of Engineering is Dr. Mohammad Shekoor T. He is from the Mechanical Engineering department. Phone: 04994-250290, Email: principal@lbscek.ac.in', language: 'english' };
+      }
+
+      // Academic Dean queries
+      if ((lowerMsg.includes('dean') || lowerMsg.includes('ഡീൻ')) && (lowerMsg.includes('academic') || lowerMsg.includes('അക്കാദമിക്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'അക്കാദമിക് ഡീൻ (UG) ഡോ. പ്രവീൺ കുമാർ കെ (Dr. Praveen Kumar K) ആണ്. അദ്ദേഹം CSE വിഭാഗത്തിലെ പ്രൊഫസറാണ്. ഫോൺ: 9447375156, ഇമെയിൽ: praveenkodoth@lbscek.ac.in', language: 'malayalam' };
+        }
+        return { answer: 'The Academic Dean (UG) is Dr. Praveen Kumar K. He is a Professor in the Computer Science & Engineering (CSE) department. Phone: 9447375156, Email: praveenkodoth@lbscek.ac.in', language: 'english' };
+      }
+
+      // ECE HOD
+      if ((lowerMsg.includes('ece') || lowerMsg.includes('electronics') || lowerMsg.includes('ഇസിഇ')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'ഇലക്ട്രോണിക്സ് ആൻഡ് കമ്മ്യൂണിക്കേഷൻ (ECE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മേരി റീന കെ ഇ (Dr. Mary Reena K E) ആണ്.', language: 'malayalam' };
+        }
+        return { answer: 'The HOD of Electronics and Communication Engineering (ECE) is Dr. Mary Reena K E. She is a Professor in the department.', language: 'english' };
+      }
+
+      // EEE HOD
+      if ((lowerMsg.includes('eee') || lowerMsg.includes('electrical') || lowerMsg.includes('ഇഇഇ')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'ഇലക്ട്രിക്കൽ ആൻഡ് ഇലക്ട്രോണിക്സ് (EEE) ഡിപ്പാർട്ട്മെന്റിലെ HOD പ്രൊഫ. ജയകുമാർ എം (Prof. Jayakumar M) ആണ്.', language: 'malayalam' };
+        }
+        return { answer: 'The HOD of Electrical and Electronics Engineering (EEE) is Prof. Jayakumar M. He is an Associate Professor.', language: 'english' };
+      }
+
+      // Mechanical HOD  
+      if ((lowerMsg.includes('mechanical') || lowerMsg.includes('mech') || lowerMsg.includes('me ') || lowerMsg.includes('മെക്കാനിക്കൽ')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'മെക്കാനിക്കൽ എഞ്ചിനീയറിംഗ് (ME) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മനോജ് കുമാർ സി വി (Dr. Manoj Kumar C V) ആണ്.', language: 'malayalam' };
+        }
+        return { answer: 'The HOD of Mechanical Engineering (ME) is Dr. Manoj Kumar C V. He is an Associate Professor.', language: 'english' };
+      }
+
+      // Civil HOD
+      if ((lowerMsg.includes('civil') || lowerMsg.includes('ce ') || lowerMsg.includes('സിവിൽ')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'സിവിൽ എഞ്ചിനീയറിംഗ് (CE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. അഞ്ജലി എം എസ് (Dr. Anjali M S) ആണ്.', language: 'malayalam' };
+        }
+        return { answer: 'The HOD of Civil Engineering (CE) is Dr. Anjali M S. She is an Associate Professor.', language: 'english' };
+      }
+
+      // IT HOD
+      if ((lowerMsg.includes('it ') || lowerMsg.includes('information technology') || lowerMsg.includes('ഐടി')) &&
+        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return { answer: 'ഇൻഫർമേഷൻ ടെക്നോളജി (IT) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. ആൻവർ എസ് ആർ (Dr. Anver S R) ആണ്.', language: 'malayalam' };
+        }
+        return { answer: 'The HOD of Information Technology (IT) is Dr. Anver S R. He is a Professor.', language: 'english' };
+      }
+
+      return null;
+    };
+
+    // Check for direct answer first
+    const directAnswer = getDirectAnswer(message);
+    if (directAnswer) {
+      console.log('Returning direct database answer for common query');
+      return new Response(
+        JSON.stringify({
+          response: directAnswer.answer,
+          detectedLanguage: directAnswer.language,
+          dataSource: 'database-direct',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Detect language with improved patterns
     const hasMalayalam = /[\u0D00-\u0D7F]/.test(message);
