@@ -464,6 +464,126 @@ const VoiceAssistant = () => {
     }
   }, [stopAudio, toast, initAudioContext, isIOSDevice]);
 
+  // Play audio from pre-fetched base64 data (faster - no API call needed)
+  const playAudioFromData = useCallback(async (audioContent: string, messageId: string, language?: "malayalam" | "manglish" | "english", isAutoPlay = false) => {
+    // Prevent multiple simultaneous plays
+    if (isAudioPlayingRef.current && audioRef.current) {
+      console.log('Audio already playing, stopping first');
+      stopAudio();
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    try {
+      // Initialize audio context for mobile
+      initAudioContext();
+
+      isAudioPlayingRef.current = true;
+      setPlayingMessageId(messageId);
+      setVoiceStatus("speaking");
+
+      // For iOS: Use data URL instead of blob URL
+      const audioDataUrl = `data:audio/wav;base64,${audioContent}`;
+
+      let audioUrl: string;
+      let usingDataUrl = false;
+
+      if (isIOSDevice) {
+        audioUrl = audioDataUrl;
+        usingDataUrl = true;
+      } else {
+        // Non-iOS: Use blob URL (more memory efficient)
+        const binaryString = atob(audioContent);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], { type: 'audio/wav' });
+        audioUrl = URL.createObjectURL(blob);
+      }
+
+      // Use the persistent iOS audio element if on iOS
+      let audio: HTMLAudioElement;
+      if (isIOSDevice && iosAudioRef.current) {
+        audio = iosAudioRef.current;
+        audio.onended = null;
+        audio.onerror = null;
+        audio.oncanplaythrough = null;
+        audio.onloadeddata = null;
+      } else {
+        audio = new Audio();
+        audio.preload = 'auto';
+        audio.setAttribute('playsinline', 'true');
+        audio.setAttribute('webkit-playsinline', 'true');
+      }
+
+      audio.volume = 1.0;
+      audioRef.current = audio;
+
+      const cleanup = () => {
+        isAudioPlayingRef.current = false;
+        setVoiceStatus("idle");
+        setPlayingMessageId(null);
+        if (!isIOSDevice) {
+          audioRef.current = null;
+        }
+        if (!usingDataUrl && audioUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(audioUrl);
+        }
+      };
+
+      audio.onended = () => {
+        console.log('Audio playback ended');
+        cleanup();
+      };
+
+      audio.onerror = (e) => {
+        console.error("Audio playback error:", e, audio.error);
+        cleanup();
+        if (!isAutoPlay) {
+          toast({
+            variant: "destructive",
+            title: "Audio Error",
+            description: isIOSDevice
+              ? "Audio playback failed. Try tapping the play button."
+              : "Failed to play audio. Please try again.",
+          });
+        }
+      };
+
+      audio.src = audioUrl;
+      audio.load();
+
+      // Small delay to ensure audio is ready
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      try {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+        }
+        console.log('Audio playing successfully (pre-fetched)');
+      } catch (playError) {
+        console.log("Autoplay blocked:", playError);
+        if (isAutoPlay) {
+          setPendingAudio({ text: '', messageId, language });
+          cleanup();
+          toast({
+            title: isIOSDevice ? "Tap to hear response" : "Tap to play audio",
+            description: "Tap the speaker button to hear the response.",
+          });
+        } else {
+          cleanup();
+          throw playError;
+        }
+      }
+    } catch (error) {
+      console.error("Audio playback error:", error);
+      isAudioPlayingRef.current = false;
+      setVoiceStatus("idle");
+      setPlayingMessageId(null);
+    }
+  }, [stopAudio, toast, initAudioContext, isIOSDevice]);
+
   // Handle sending message to AI
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || isProcessing) return;
@@ -579,11 +699,33 @@ const VoiceAssistant = () => {
         language: data.detectedLanguage,
       };
 
+      // Start TTS fetch immediately BEFORE updating UI state
+      // This allows audio to start loading while React renders the message
+      const ttsPromise = (async () => {
+        try {
+          const targetLanguageCode = data.detectedLanguage === "english" ? "en-IN" : "ml-IN";
+          const { data: ttsData, error: ttsError } = await supabase.functions.invoke("sarvam-tts", {
+            body: { text: data.response, targetLanguageCode },
+          });
+          if (ttsError) throw ttsError;
+          return ttsData;
+        } catch (e) {
+          console.error('Pre-fetch TTS error:', e);
+          return null;
+        }
+      })();
+
+      // Update UI with message
       setMessages((prev) => [...prev, assistantMessage]);
       setVoiceStatus("idle");
+      setIsProcessing(false);
 
-      // Auto-play response (will gracefully fall back to manual play on mobile if blocked)
-      playAudio(data.response, assistantMessage.id, data.detectedLanguage, true);
+      // Wait for TTS data and play audio
+      const ttsData = await ttsPromise;
+      if (ttsData?.audioContent) {
+        // Play the pre-fetched audio directly
+        playAudioFromData(ttsData.audioContent, assistantMessage.id, data.detectedLanguage, true);
+      }
 
     } catch (error) {
       console.error("Error:", error);
@@ -596,7 +738,7 @@ const VoiceAssistant = () => {
     } finally {
       setIsProcessing(false);
     }
-  }, [messages, isProcessing, toast, playAudio, getCurrentPosition]);
+  }, [messages, isProcessing, toast, getCurrentPosition]);
 
   // Handle location result from panel
   const handleLocationResult = useCallback((result: LocationResult) => {
