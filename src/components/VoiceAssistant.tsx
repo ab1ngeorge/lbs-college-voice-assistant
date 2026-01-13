@@ -699,33 +699,31 @@ const VoiceAssistant = () => {
         language: data.detectedLanguage,
       };
 
-      // Start TTS fetch immediately BEFORE updating UI state
-      // This allows audio to start loading while React renders the message
-      const ttsPromise = (async () => {
+      // Start TTS fetch immediately - don't await, let it load in background
+      // This makes the text appear instantly while audio loads
+      const loadAndPlayAudio = async () => {
         try {
           const targetLanguageCode = data.detectedLanguage === "english" ? "en-IN" : "ml-IN";
           const { data: ttsData, error: ttsError } = await supabase.functions.invoke("sarvam-tts", {
             body: { text: data.response, targetLanguageCode },
           });
           if (ttsError) throw ttsError;
-          return ttsData;
+          if (ttsData?.audioContent) {
+            // Play the audio when ready
+            playAudioFromData(ttsData.audioContent, assistantMessage.id, data.detectedLanguage, true);
+          }
         } catch (e) {
-          console.error('Pre-fetch TTS error:', e);
-          return null;
+          console.error('TTS error:', e);
         }
-      })();
+      };
 
-      // Update UI with message
+      // Start audio loading in background (non-blocking)
+      loadAndPlayAudio();
+
+      // Update UI with message immediately - no waiting for TTS
       setMessages((prev) => [...prev, assistantMessage]);
       setVoiceStatus("idle");
       setIsProcessing(false);
-
-      // Wait for TTS data and play audio
-      const ttsData = await ttsPromise;
-      if (ttsData?.audioContent) {
-        // Play the pre-fetched audio directly
-        playAudioFromData(ttsData.audioContent, assistantMessage.id, data.detectedLanguage, true);
-      }
 
     } catch (error) {
       console.error("Error:", error);
