@@ -5,6 +5,7 @@ import VoiceButton from "./VoiceButton";
 import ChatMessage from "./ChatMessage";
 import TextInput from "./TextInput";
 import SuggestedQuestions from "./SuggestedQuestions";
+import QuickCategories from "./QuickCategories";
 import AudioWaveform from "./AudioWaveform";
 import LocationPanel, { LocationResult } from "./LocationPanel";
 import { Mic, Loader2, MapPin } from "lucide-react";
@@ -496,6 +497,11 @@ const VoiceAssistant = () => {
     sendMessage(question);
   };
 
+  // Handle quick category selection
+  const handleCategorySelect = (_category: string, question: string) => {
+    sendMessage(question);
+  };
+
   return (
     <div className="flex flex-col h-[calc(100vh-80px)] max-w-4xl mx-auto">
       {/* Chat messages area */}
@@ -526,6 +532,9 @@ const VoiceAssistant = () => {
                 മലയാളത്തിൽ ചോദിക്കാം
               </p>
             </div>
+
+            {/* Quick category buttons */}
+            <QuickCategories onCategorySelect={handleCategorySelect} />
 
             {/* Suggested questions */}
             <SuggestedQuestions onSelect={handleQuestionSelect} />

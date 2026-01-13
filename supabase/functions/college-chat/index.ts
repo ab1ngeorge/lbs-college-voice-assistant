@@ -911,7 +911,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 83,
-    "tags": ["fee structure", "btech fee", "college fee", "tuition fee", "fees 2025", "fee ethra", "ഫീസ്", "fee structure 2025-26"],
+    "tags": ["fee structure", "btech fee", "college fee", "tuition fee", "fees 2025", "fee ethra", "ഫീസ്", "fee structure 2025-26", "sc fee", "st fee", "oec fee", "sc st fee", "reserved category fee", "sc student fee", "st student fee", "obc fee", "sebc fee", "merit fee", "high fee seat"],
     "answer_facts": {
       "B.Tech Regular Merit Seat": "₹56,870 (Net Fee Payable to College, includes KTU fees)",
       "B.Tech Regular High Fee Seat": "₹88,370",

@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { User, Bot, Volume2, MapPin, ExternalLink } from "lucide-react";
+import { User, Bot, Volume2, MapPin, ExternalLink, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ChatMessageProps {
@@ -14,6 +15,17 @@ interface ChatMessageProps {
 
 const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, locationName, locationLink }: ChatMessageProps) => {
   const isUser = role === "user";
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
 
   // Convert URLs in text to clickable links
   const renderContentWithLinks = (text: string) => {
@@ -76,19 +88,19 @@ const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, location
       {/* Avatar */}
       <div
         className={cn(
-          "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center",
+          "flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-sm",
           isUser
             ? "bg-kerala-gold text-white"
             : "bg-kerala-green text-white"
         )}
       >
-        {isUser ? <User className="h-5 w-5" /> : <Bot className="h-5 w-5" />}
+        {isUser ? <User className="h-4 w-4 md:h-5 md:w-5" /> : <Bot className="h-4 w-4 md:h-5 md:w-5" />}
       </div>
 
       {/* Message content */}
       <div
         className={cn(
-          "flex-1 max-w-[80%]",
+          "flex-1 max-w-[85%] md:max-w-[80%]",
           isUser ? "text-right" : "text-left"
         )}
       >
@@ -112,20 +124,48 @@ const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, location
           </p>
         </div>
 
-        {/* Play audio button for assistant messages */}
-        {!isUser && onPlayAudio && (
-          <button
-            onClick={onPlayAudio}
-            className={cn(
-              "mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full",
-              "text-xs font-medium transition-colors",
-              "bg-muted hover:bg-muted/80 text-muted-foreground",
-              isPlaying && "bg-kerala-green text-white"
+        {/* Action buttons for assistant messages */}
+        {!isUser && (
+          <div className="mt-2 flex items-center gap-2 flex-wrap">
+            {/* Play audio button */}
+            {onPlayAudio && (
+              <button
+                onClick={onPlayAudio}
+                className={cn(
+                  "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full",
+                  "text-xs font-medium transition-colors",
+                  "bg-muted hover:bg-muted/80 text-muted-foreground",
+                  isPlaying && "bg-kerala-green text-white"
+                )}
+              >
+                <Volume2 className="h-3.5 w-3.5" />
+                {isPlaying ? "Playing..." : "Play"}
+              </button>
             )}
-          >
-            <Volume2 className="h-3.5 w-3.5" />
-            {isPlaying ? "Playing..." : "Play"}
-          </button>
+
+            {/* Copy button */}
+            <button
+              onClick={handleCopy}
+              className={cn(
+                "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full",
+                "text-xs font-medium transition-colors",
+                "bg-muted hover:bg-muted/80 text-muted-foreground",
+                copied && "bg-green-500 text-white"
+              )}
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3.5 w-3.5" />
+                  Copied!
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5" />
+                  Copy
+                </>
+              )}
+            </button>
+          </div>
         )}
 
         {/* Google Maps button for location-related responses */}
