@@ -1209,6 +1209,24 @@ const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
   const messageWords = lowerMessage.split(/\s+/);
   const matchedFAQs: { faq: typeof COLLEGE_FAQ_DATA[0]; score: number }[] = [];
 
+  // SPECIAL CASE: HOD queries - always include the HOD FAQ with max priority
+  const isHODQuery = lowerMessage.includes('hod') ||
+    lowerMessage.includes('head') ||
+    lowerMessage.includes('medhavi') ||
+    lowerMessage.includes('മേധാവി') ||
+    lowerMessage.includes('എച്ച്') ||
+    (lowerMessage.includes('name') && (
+      lowerMessage.includes('cse') ||
+      lowerMessage.includes('ece') ||
+      lowerMessage.includes('eee') ||
+      lowerMessage.includes('mechanical') ||
+      lowerMessage.includes('civil') ||
+      lowerMessage.includes('department')
+    ));
+
+  console.log('findRelevantFAQs called with:', lowerMessage);
+  console.log('Is HOD query?', isHODQuery);
+
   // Expand message with synonyms for better matching
   let expandedMessage = lowerMessage;
   for (const [key, synonyms] of Object.entries(MANGLISH_SYNONYMS)) {
@@ -1222,6 +1240,12 @@ const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
 
   for (const faq of COLLEGE_FAQ_DATA) {
     let score = 0;
+
+    // SPECIAL BOOST: If this is an HOD query and this is the HOD FAQ (id 27), boost it significantly
+    if (isHODQuery && faq.id === 27) {
+      score += 100; // Very high boost to ensure this FAQ is always found for HOD queries
+      console.log('HOD FAQ boosted with score 100');
+    }
 
     // Check tags for matches (high priority)
     for (const tag of faq.tags) {
@@ -1265,13 +1289,20 @@ const findRelevantFAQs = (message: string): typeof COLLEGE_FAQ_DATA => {
     }
   }
 
-  // Sort by score and return top matches
-  // Only return FAQs with significant matches (score > 5)
-  return matchedFAQs
+  const results = matchedFAQs
     .filter(m => m.score > 5)
     .sort((a, b) => b.score - a.score)
     .slice(0, 10)
     .map(m => m.faq);
+
+  console.log(`findRelevantFAQs found ${results.length} matches`);
+  if (results.length > 0) {
+    console.log('Top match ID:', results[0].id, 'Tags:', results[0].tags.slice(0, 3));
+  }
+
+  // Sort by score and return top matches
+  // Only return FAQs with significant matches (score > 5)
+  return results;
 };
 
 // Format relevant FAQs for the AI context
@@ -1586,9 +1617,61 @@ serve(async (req) => {
     const getDirectAnswer = (msg: string): { answer: string; language: string } | null => {
       const lowerMsg = msg.toLowerCase();
 
+      // Helper function to check if query is asking about HOD/head
+      const isHODQuery = (text: string): boolean => {
+        return text.includes('hod') || text.includes('head') || text.includes('മേധാവി') ||
+          text.includes('എച്ച്') || text.includes('ഡി') || text.includes('medhavi') ||
+          text.includes('name') || text.includes('peru') || text.includes('പേര്') ||
+          text.includes('aaranu') || text.includes('aaru') || text.includes('aaraanu');
+      };
+
+      // Helper function to check for CSE department keywords
+      const isCSEQuery = (text: string): boolean => {
+        return text.includes('cse') || text.includes('computer') || text.includes('സിഎസ') ||
+          text.includes('കമ്പ്യൂട്ടർ') || text.includes('cs department') ||
+          text.includes('computer science');
+      };
+
+      // Helper function to check for ECE department keywords
+      const isECEQuery = (text: string): boolean => {
+        return text.includes('ece') || text.includes('electronics') || text.includes('ഇസിഇ') ||
+          text.includes('communication');
+      };
+
+      // Helper function to check for EEE department keywords
+      const isEEEQuery = (text: string): boolean => {
+        return text.includes('eee') || text.includes('electrical') || text.includes('ഇഇഇ');
+      };
+
+      // Helper function to check for Mechanical department keywords
+      const isMEQuery = (text: string): boolean => {
+        return text.includes('mechanical') || text.includes('mech') ||
+          (text.includes('me ') || text.startsWith('me ') || text.endsWith(' me')) ||
+          text.includes('മെക്കാനിക്കൽ');
+      };
+
+      // Helper function to check for Civil department keywords
+      const isCivilQuery = (text: string): boolean => {
+        return text.includes('civil') ||
+          (text.includes('ce ') || text.startsWith('ce ') || text.endsWith(' ce')) ||
+          text.includes('സിവിൽ');
+      };
+
+      // Helper function to check for IT department keywords
+      const isITQuery = (text: string): boolean => {
+        return (text.includes('it ') || text.startsWith('it ') || text.endsWith(' it') || text === 'it') ||
+          text.includes('information technology') || text.includes('ഐടി');
+      };
+
       // CSE HOD queries - multiple patterns
-      if ((lowerMsg.includes('cse') || lowerMsg.includes('computer') || lowerMsg.includes('സിഎസ') || lowerMsg.includes('കമ്പ്യൂട്ടർ')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്') || lowerMsg.includes('ഡി'))) {
+      console.log('Checking CSE HOD:', {
+        isCSE: isCSEQuery(lowerMsg),
+        isHOD: isHODQuery(lowerMsg),
+        lowerMsg: lowerMsg.substring(0, 50)
+      });
+
+      if (isCSEQuery(lowerMsg) && isHODQuery(lowerMsg)) {
+        console.log('✅ CSE HOD query matched!');
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'കമ്പ്യൂട്ടർ സയൻസ് ആൻഡ് എഞ്ചിനീയറിംഗ് (CSE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മനോജ് കുമാർ ജി (Dr. Manoj Kumar G) ആണ്. അദ്ദേഹം പ്രൊഫസറാണ്. ഫോൺ: 8547458075, ഇമെയിൽ: manojkumar@lbscek.ac.in', language: 'malayalam' };
         }
@@ -1612,8 +1695,7 @@ serve(async (req) => {
       }
 
       // ECE HOD
-      if ((lowerMsg.includes('ece') || lowerMsg.includes('electronics') || lowerMsg.includes('ഇസിഇ')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+      if (isECEQuery(lowerMsg) && isHODQuery(lowerMsg)) {
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'ഇലക്ട്രോണിക്സ് ആൻഡ് കമ്മ്യൂണിക്കേഷൻ (ECE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മേരി റീന കെ ഇ (Dr. Mary Reena K E) ആണ്.', language: 'malayalam' };
         }
@@ -1621,8 +1703,7 @@ serve(async (req) => {
       }
 
       // EEE HOD
-      if ((lowerMsg.includes('eee') || lowerMsg.includes('electrical') || lowerMsg.includes('ഇഇഇ')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+      if (isEEEQuery(lowerMsg) && isHODQuery(lowerMsg)) {
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'ഇലക്ട്രിക്കൽ ആൻഡ് ഇലക്ട്രോണിക്സ് (EEE) ഡിപ്പാർട്ട്മെന്റിലെ HOD പ്രൊഫ. ജയകുമാർ എം (Prof. Jayakumar M) ആണ്.', language: 'malayalam' };
         }
@@ -1630,8 +1711,7 @@ serve(async (req) => {
       }
 
       // Mechanical HOD  
-      if ((lowerMsg.includes('mechanical') || lowerMsg.includes('mech') || lowerMsg.includes('me ') || lowerMsg.includes('മെക്കാനിക്കൽ')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+      if (isMEQuery(lowerMsg) && isHODQuery(lowerMsg)) {
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'മെക്കാനിക്കൽ എഞ്ചിനീയറിംഗ് (ME) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. മനോജ് കുമാർ സി വി (Dr. Manoj Kumar C V) ആണ്.', language: 'malayalam' };
         }
@@ -1639,8 +1719,7 @@ serve(async (req) => {
       }
 
       // Civil HOD
-      if ((lowerMsg.includes('civil') || lowerMsg.includes('ce ') || lowerMsg.includes('സിവിൽ')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+      if (isCivilQuery(lowerMsg) && isHODQuery(lowerMsg)) {
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'സിവിൽ എഞ്ചിനീയറിംഗ് (CE) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. അഞ്ജലി എം എസ് (Dr. Anjali M S) ആണ്.', language: 'malayalam' };
         }
@@ -1648,21 +1727,44 @@ serve(async (req) => {
       }
 
       // IT HOD
-      if ((lowerMsg.includes('it ') || lowerMsg.includes('information technology') || lowerMsg.includes('ഐടി')) &&
-        (lowerMsg.includes('hod') || lowerMsg.includes('head') || lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്'))) {
+      if (isITQuery(lowerMsg) && isHODQuery(lowerMsg)) {
         if (/[\u0D00-\u0D7F]/.test(msg)) {
           return { answer: 'ഇൻഫർമേഷൻ ടെക്നോളജി (IT) ഡിപ്പാർട്ട്മെന്റിലെ HOD ഡോ. ആൻവർ എസ് ആർ (Dr. Anver S R) ആണ്.', language: 'malayalam' };
         }
         return { answer: 'The HOD of Information Technology (IT) is Dr. Anver S R. He is a Professor.', language: 'english' };
       }
 
+      // General HOD query without specific department - list all HODs to prevent hallucination
+      if ((lowerMsg.includes('hod') || lowerMsg.includes('head of department') || lowerMsg.includes('department head') ||
+        lowerMsg.includes('മേധാവി') || lowerMsg.includes('എച്ച്ഡി') || lowerMsg.includes('medhavi')) &&
+        !isCSEQuery(lowerMsg) && !isECEQuery(lowerMsg) && !isEEEQuery(lowerMsg) &&
+        !isMEQuery(lowerMsg) && !isCivilQuery(lowerMsg) && !isITQuery(lowerMsg)) {
+        if (/[\u0D00-\u0D7F]/.test(msg)) {
+          return {
+            answer: 'LBS കോളേജ് ഓഫ് എഞ്ചിനീയറിംഗിലെ വിഭാഗം മേധാവികൾ (HODs):\n\n• CSE HOD: ഡോ. മനോജ് കുമാർ ജി (Dr. Manoj Kumar G)\n• IT HOD: ഡോ. ആൻവർ എസ് ആർ (Dr. Anver S R)\n• ECE HOD: ഡോ. മേരി റീന കെ ഇ (Dr. Mary Reena K E)\n• EEE HOD: പ്രൊഫ. ജയകുമാർ എം (Prof. Jayakumar M)\n• Mechanical HOD: ഡോ. മനോജ് കുമാർ സി വി (Dr. Manoj Kumar C V)\n• Civil HOD: ഡോ. അഞ്ജലി എം എസ് (Dr. Anjali M S)\n• Applied Science HOD: പ്രൊഫ. വിനീഷ് കുമാർ കെ വി (Prof. Vineesh Kumar K V)\n\nഏത് ഡിപ്പാർട്ട്മെന്റിനെ കുറിച്ചാണ് അറിയേണ്ടത്?',
+            language: 'malayalam'
+          };
+        }
+        return {
+          answer: 'Here are all the Heads of Departments (HODs) at LBS College of Engineering:\n\n• CSE HOD: Dr. Manoj Kumar G (Professor)\n• IT HOD: Dr. Anver S R (Professor)\n• ECE HOD: Dr. Mary Reena K E (Professor)\n• EEE HOD: Prof. Jayakumar M (Associate Professor)\n• Mechanical HOD: Dr. Manoj Kumar C V (Associate Professor)\n• Civil HOD: Dr. Anjali M S (Associate Professor)\n• Applied Science HOD: Prof. Vineesh Kumar K V (Assistant Professor)\n\nWhich department would you like more details about?',
+          language: 'english'
+        };
+      }
+
       return null;
     };
 
-    // Check for direct answer first
+    // Check for direct answer first - ALWAYS log this for debugging
+    console.log('=== DIRECT ANSWER CHECK ===');
+    console.log('Original message:', message);
+    console.log('Message lowercase:', message.toLowerCase());
+
     const directAnswer = getDirectAnswer(message);
+    console.log('Direct answer result:', directAnswer ? 'FOUND - returning direct database answer' : 'NOT FOUND - will use AI');
+
     if (directAnswer) {
-      console.log('Returning direct database answer for common query');
+      console.log('✅ DIRECT DATABASE ANSWER - bypassing AI completely');
+      console.log('Answer:', directAnswer.answer.substring(0, 100) + '...');
       return new Response(
         JSON.stringify({
           response: directAnswer.answer,
@@ -1672,6 +1774,8 @@ serve(async (req) => {
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+
+    console.log('⚠️ No direct answer found - proceeding to AI (may hallucinate)');
 
     // Detect language with improved patterns
     const hasMalayalam = /[\u0D00-\u0D7F]/.test(message);
@@ -1723,14 +1827,51 @@ ${websiteData}
     }
 
     // Build conversation messages with database data as primary source
-    const relevantDataInstruction = relevantFAQs.length > 0
-      ? `\n\n[CRITICAL INSTRUCTION: ANSWER ONLY FROM THIS DATABASE DATA. DO NOT ADD ANY INFORMATION NOT LISTED HERE. If the answer is not in this data, say "I don't have that information."${relevantFAQsContext}]\n\n`
-      : `\n\n[WARNING: No matching data found in database for this query. You MUST say "I don't have that specific information in my database. Please contact the college office at +91-4994-256300 or visit https://lbscek.ac.in" - DO NOT MAKE UP AN ANSWER.]\n\n`;
+    // Make the instruction EXTREMELY aggressive to prevent hallucination
+    let relevantDataInstruction: string;
+
+    if (relevantFAQs.length > 0) {
+      // Extract just the key facts in a very explicit format
+      const factsList = relevantFAQs.map(faq => {
+        const facts = Object.entries(faq.answer_facts)
+          .map(([key, value]) => `  "${key}": "${value}"`)
+          .join(',\n');
+        return `{\n  "tags": ["${faq.tags.slice(0, 3).join('", "')}"],\n${facts}\n}`;
+      }).join(',\n');
+
+      relevantDataInstruction = `
+🔴🔴🔴 MANDATORY DATABASE LOOKUP RESULT 🔴🔴🔴
+THE FOLLOWING IS THE ONLY SOURCE OF TRUTH. USE ONLY THIS DATA:
+
+[DATABASE_RESULT_START]
+${factsList}
+[DATABASE_RESULT_END]
+
+⚠️ RULES:
+1. Your answer MUST be from the data above
+2. If a name is listed above, use EXACTLY that name
+3. DO NOT use any name from your training data
+4. The data above is the ONLY valid source
+
+USER QUESTION: ${message}
+
+YOUR TASK: Answer ONLY using the DATABASE_RESULT above. Copy-paste the relevant values.`;
+    } else {
+      relevantDataInstruction = `
+⚠️ DATABASE LOOKUP RETURNED: NO RESULTS
+
+Since no database data is available, you MUST respond with:
+"I don't have that specific information in my database. Please contact the college office at +91-4994-256300 or visit https://lbscek.ac.in"
+
+DO NOT MAKE UP ANY INFORMATION.
+
+USER QUESTION: ${message}`;
+    }
 
     const messages = [
       { role: 'system', content: dynamicContext },
       ...(conversationHistory || []).slice(-10),
-      { role: 'user', content: relevantDataInstruction + message }
+      { role: 'user', content: relevantDataInstruction }
     ];
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
