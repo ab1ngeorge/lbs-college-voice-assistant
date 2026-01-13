@@ -13,16 +13,17 @@ export interface GeolocationState {
   permissionState: PermissionState | null;
 }
 
-// LBS College coordinates (Main Entrance)
+// LBS College coordinates (Main Entrance) - Kasaragod, Kerala
 export const COLLEGE_COORDINATES: Coordinates = {
-  latitude: 8.8932,
-  longitude: 76.6141,
+  latitude: 12.4760,
+  longitude: 75.0312,
 };
 
 // Main college Google Maps link (verified)
 export const COLLEGE_MAPS_LINK = 'https://maps.app.goo.gl/MgJURkMksGx7neiZ8';
 
 // Campus locations with verified Google Maps links
+// Note: Coordinates are approximate relative positions within the campus at Kasaragod
 export const CAMPUS_LOCATIONS: Record<string, {
   name: string;
   coordinates: Coordinates;
@@ -32,25 +33,25 @@ export const CAMPUS_LOCATIONS: Record<string, {
   // 🏛️ Main Campus & Admin
   'main_entrance': {
     name: 'LBS College of Engineering (Main Entrance)',
-    coordinates: { latitude: 8.8932, longitude: 76.6141 },
+    coordinates: { latitude: 12.4760, longitude: 75.0312 },
     description: 'Main entrance of LBS College of Engineering',
     mapsLink: 'https://maps.app.goo.gl/MgJURkMksGx7neiZ8'
   },
   'academic_departments': {
     name: 'Academic Departments (General Area)',
-    coordinates: { latitude: 8.8935, longitude: 76.6145 },
+    coordinates: { latitude: 12.4763, longitude: 75.0316 },
     description: 'General academic departments area',
     mapsLink: 'https://maps.app.goo.gl/2PvfbFGAkUFjFBjS6'
   },
   'mechanical_department': {
     name: 'Dept. Of Mechanical Engineering',
-    coordinates: { latitude: 8.8938, longitude: 76.6148 },
+    coordinates: { latitude: 12.4766, longitude: 75.0319 },
     description: 'Department of Mechanical Engineering',
     mapsLink: 'https://maps.app.goo.gl/ZpHNZt62DzfHEMWWA'
   },
   'cse_department': {
     name: 'Computer Science & IT Department Building',
-    coordinates: { latitude: 8.8940, longitude: 76.6150 },
+    coordinates: { latitude: 12.4768, longitude: 75.0321 },
     description: 'Department of Computer Science and Information Technology',
     mapsLink: 'https://maps.app.goo.gl/y7epqn9H51K4fBBJ8'
   },
@@ -58,31 +59,31 @@ export const CAMPUS_LOCATIONS: Record<string, {
   // 🔬 Academic Facilities
   'library': {
     name: 'Central Library',
-    coordinates: { latitude: 8.8942, longitude: 76.6143 },
+    coordinates: { latitude: 12.4770, longitude: 75.0314 },
     description: 'Central library with reading rooms and digital resources',
     mapsLink: 'https://maps.app.goo.gl/uNePErUh3hs4kUWP9'
   },
   'fab_lab': {
     name: 'Campus Fab Lab',
-    coordinates: { latitude: 8.8936, longitude: 76.6147 },
+    coordinates: { latitude: 12.4764, longitude: 75.0318 },
     description: 'Fabrication lab for innovation and prototyping',
     mapsLink: 'https://maps.app.goo.gl/3rz8e5WXZ3UytSze7'
   },
   'computer_lab': {
     name: 'Computer Lab',
-    coordinates: { latitude: 8.8939, longitude: 76.6149 },
+    coordinates: { latitude: 12.4767, longitude: 75.0320 },
     description: 'Main computer laboratory',
     mapsLink: 'https://maps.app.goo.gl/jKVxbxhyhhuu5Bk5A'
   },
   'reprographic_centre': {
     name: 'Reprographic Centre',
-    coordinates: { latitude: 8.8934, longitude: 76.6144 },
+    coordinates: { latitude: 12.4762, longitude: 75.0315 },
     description: 'Printing and photocopying services',
     mapsLink: 'https://maps.app.goo.gl/FZ72xAAczEwk2mgi7'
   },
   'malloc': {
     name: 'Malloc',
-    coordinates: { latitude: 8.8937, longitude: 76.6146 },
+    coordinates: { latitude: 12.4765, longitude: 75.0317 },
     description: 'Malloc - Student innovation space',
     mapsLink: 'https://maps.app.goo.gl/YSNeu8quVya8Q2rG7'
   },
@@ -90,19 +91,19 @@ export const CAMPUS_LOCATIONS: Record<string, {
   // ⚽ Sports & Recreation
   'sports_area': {
     name: 'Multipurpose Sports Area',
-    coordinates: { latitude: 8.8928, longitude: 76.6138 },
+    coordinates: { latitude: 12.4756, longitude: 75.0309 },
     description: 'Multipurpose sports and recreation area',
     mapsLink: 'https://maps.app.goo.gl/7udrNyuqcpqFt9QdA'
   },
   'football_ground': {
     name: 'LBS College Football Ground',
-    coordinates: { latitude: 8.8925, longitude: 76.6135 },
+    coordinates: { latitude: 12.4753, longitude: 75.0306 },
     description: 'Main football ground',
     mapsLink: 'https://maps.app.goo.gl/UQFXPxeNAibXndGg8'
   },
   'sevens_ground': {
     name: 'LBS College Football Ground (7\'s Ground)',
-    coordinates: { latitude: 8.8923, longitude: 76.6133 },
+    coordinates: { latitude: 12.4751, longitude: 75.0304 },
     description: '7-a-side football ground',
     mapsLink: 'https://maps.app.goo.gl/Ac3hF8A5NzUYAUXX9'
   },
@@ -110,43 +111,43 @@ export const CAMPUS_LOCATIONS: Record<string, {
   // 🏠 Student Amenities
   'mens_hostel': {
     name: "Men's Hostel (Verified Block)",
-    coordinates: { latitude: 8.8945, longitude: 76.6155 },
+    coordinates: { latitude: 12.4773, longitude: 75.0326 },
     description: 'Boys hostel accommodation',
     mapsLink: 'https://maps.app.goo.gl/LsvhTeDypf263vEB7'
   },
   'ladies_hostel': {
     name: 'Shahanas Hostel (Ladies Hostel)',
-    coordinates: { latitude: 8.8948, longitude: 76.6158 },
+    coordinates: { latitude: 12.4776, longitude: 75.0329 },
     description: 'Shahanas Hostel for women students',
     mapsLink: 'https://maps.app.goo.gl/YatNVBSMh2kk34N76'
   },
   'canteen': {
     name: 'College Canteen',
-    coordinates: { latitude: 8.8933, longitude: 76.6142 },
+    coordinates: { latitude: 12.4761, longitude: 75.0313 },
     description: 'Food court serving breakfast, lunch, and snacks',
     mapsLink: 'https://maps.app.goo.gl/rCmEM7mRmDZ5aGzx8'
   },
   'atm': {
     name: 'College ATM (SBI ATM)',
-    coordinates: { latitude: 8.8931, longitude: 76.6140 },
+    coordinates: { latitude: 12.4759, longitude: 75.0311 },
     description: 'SBI ATM for cash withdrawal',
     mapsLink: 'https://maps.app.goo.gl/Bjvi4taHV9gabc3bA'
   },
   'bus_garage': {
     name: 'Bus Garage / Transport Area',
-    coordinates: { latitude: 8.8920, longitude: 76.6130 },
+    coordinates: { latitude: 12.4748, longitude: 75.0301 },
     description: 'College bus parking and transport area',
     mapsLink: 'https://maps.app.goo.gl/9WUemftWwmGohsRW8'
   },
   'student_coop': {
     name: 'Student Co-Operative Society',
-    coordinates: { latitude: 8.8932, longitude: 76.6143 },
+    coordinates: { latitude: 12.4760, longitude: 75.0314 },
     description: 'Student cooperative store for stationery and supplies',
     mapsLink: 'https://maps.app.goo.gl/vZdwXwC62odZn53G7'
   },
   'electrical_control_room': {
     name: 'Electrical Control Room',
-    coordinates: { latitude: 8.8930, longitude: 76.6139 },
+    coordinates: { latitude: 12.4758, longitude: 75.0310 },
     description: 'Campus electrical control and maintenance room',
     mapsLink: 'https://maps.app.goo.gl/NdGXX3SKfzGHnFnq8'
   },

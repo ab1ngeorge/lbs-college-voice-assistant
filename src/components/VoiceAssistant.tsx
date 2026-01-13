@@ -736,7 +736,7 @@ const VoiceAssistant = () => {
     } finally {
       setIsProcessing(false);
     }
-  }, [messages, isProcessing, toast, getCurrentPosition]);
+  }, [messages, isProcessing, toast, getCurrentPosition, playAudio, playAudioFromData]);
 
   // Handle location result from panel
   const handleLocationResult = useCallback((result: LocationResult) => {

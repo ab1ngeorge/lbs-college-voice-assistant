@@ -810,7 +810,7 @@ const COLLEGE_FAQ_DATA = [
       "Chairperson, Executive Committee": "Dr. Sharmila Mary Joseph IAS (Principal Secretary)",
       "Member Secretary, LBS Centre for Science & Technology": "Prof. (Dr.) M. Abdul Rahiman",
       "Chairman, Board of Governors (BoG)": "Prof. M. Thamban Nair",
-      "Principal": "Dr. Mohammad Sekoor T",
+      "Principal": "Dr. Mohammad Shekoor T",
       "Administrative Officer": "Mr. Ajesh S",
       "Senior Superintendent": "Mr. Santhosh Kumar K",
       "Junior Superintendent": "Mrs. Shaina Pacha",
