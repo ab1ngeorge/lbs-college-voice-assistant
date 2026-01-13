@@ -9,19 +9,20 @@ const corsHeaders = {
 const COLLEGE_FAQ_DATA = [
   {
     "id": 1,
-    "tags": ["courses", "programs", "admissions"],
+    "tags": ["courses", "programs", "admissions", "കോഴ്സുകൾ", "പ്രോഗ്രാമുകൾ", "ബിടെക്", "എംടെക്", "branches", "departments"],
     "answer_facts": {
       "UG Programs (B.Tech)": "Computer Science & Engineering (CSE), Electronics & Communication Engineering (ECE), Electrical & Electronics Engineering (EEE), Mechanical Engineering (ME), Civil Engineering (CE), Information Technology (IT)",
       "PG Programs": "M.Tech in Computer Science & Engineering, Master of Computer Applications (MCA)",
       "Annual Intake": "480 for UG programs, 18 for PG program in CSE",
       "Duration": "B.Tech: 4 years (8 semesters)",
       "Approval": "Approved by AICTE and affiliated to APJ Abdul Kalam Technological University",
-      "Additional Info": "MCA program started in 2000 with intake of 35, Civil Engineering added in 2008"
+      "Malayalam": "B.Tech കോഴ്സുകൾ: CSE, ECE, EEE, ME, CE, IT. M.Tech: Computer Science. ആകെ 480 UG സീറ്റുകൾ.",
+      "Manglish": "B.Tech courses: CSE, ECE, EEE, ME, CE, IT. M.Tech: Computer Science. Total 480 UG seats und."
     }
   },
   {
     "id": 2,
-    "tags": ["contact", "phone", "email", "address"],
+    "tags": ["contact", "phone", "email", "address", "ഫോൺ", "ഇമെയിൽ", "വിലാസം", "നമ്പർ", "ബന്ധപ്പെടുക"],
     "answer_facts": {
       "Phone": "+91-4994-256300, +91-4994-256301",
       "Fax": "+91-4994-256302",
@@ -30,12 +31,14 @@ const COLLEGE_FAQ_DATA = [
       "Address": "LBS College of Engineering, Muliyar, Kasaragod District, Kerala - 671542, India",
       "Location": "Situated in Muliyar Panchayath, 12 km from Kasaragod town",
       "Website": "https://lbscek.ac.in",
-      "Office Hours": "9:00 AM to 5:00 PM (Monday to Friday), 9:00 AM to 1:00 PM (Saturday)"
+      "Office Hours": "9:00 AM to 5:00 PM (Monday to Friday), 9:00 AM to 1:00 PM (Saturday)",
+      "Malayalam": "ഫോൺ: +91-4994-256300. ഇമെയിൽ: principal@lbscek.ac.in. വിലാസം: LBS College of Engineering, Muliyar, Kasaragod - 671542.",
+      "Manglish": "Phone: +91-4994-256300. Email: principal@lbscek.ac.in. Address: LBS College, Muliyar, Kasaragod - 671542."
     }
   },
   {
     "id": 3,
-    "tags": ["library", "facilities", "timings"],
+    "tags": ["library", "facilities", "timings", "ലൈബ്രറി", "പുസ്തകശാല", "സമയം", "ലൈബ്രറി സമയം"],
     "answer_facts": {
       "Weekdays (Mon-Fri)": "8:30 AM to 8:00 PM",
       "Saturdays": "8:30 AM to 5:00 PM",
@@ -43,12 +46,14 @@ const COLLEGE_FAQ_DATA = [
       "Exam Period": "Extended hours during university exams",
       "Digital Library": "24/7 access to online resources",
       "Collection": "Over 25,000 books, 100+ print journals, 5000+ e-journals",
-      "Facilities": "Reading rooms, reference section, digital library, photocopying"
+      "Facilities": "Reading rooms, reference section, digital library, photocopying",
+      "Malayalam": "ലൈബ്രറി സമയം: തിങ്കൾ-വെള്ളി 8:30 AM - 8:00 PM, ശനി 8:30 AM - 5:00 PM, ഞായർ 10:00 AM - 4:00 PM. 25,000+ പുസ്തകങ്ങൾ.",
+      "Manglish": "Library timing: Mon-Fri 8:30 AM - 8:00 PM, Sat 8:30 AM - 5:00 PM, Sun 10:00 AM - 4:00 PM. 25,000+ books und."
     }
   },
   {
     "id": 4,
-    "tags": ["admission", "apply", "procedure"],
+    "tags": ["admission", "apply", "procedure", "അഡ്മിഷൻ", "പ്രവേശനം", "എങ്ങനെ ചേരാം", "KEAM", "കീം"],
     "answer_facts": {
       "Application Mode": "Through KEAM (Kerala Engineering Architecture Medical) counselling",
       "Eligibility": "10+2 with minimum 50% marks in Physics, Chemistry, and Mathematics",
@@ -57,12 +62,14 @@ const COLLEGE_FAQ_DATA = [
       "NRI Quota": "15% seats reserved for NRI candidates",
       "Management Quota": "Available as per government norms",
       "Important Dates": "KEAM application usually opens in January, counselling in June-July",
-      "Documents Required": "KEAM rank card, 10th & 12th marksheets, transfer certificate, conduct certificate, passport size photos"
+      "Documents Required": "KEAM rank card, 10th & 12th marksheets, transfer certificate, conduct certificate, passport size photos",
+      "Malayalam": "അഡ്മിഷൻ KEAM കൗൺസിലിംഗ് വഴി. യോഗ്യത: +2 ൽ Physics, Chemistry, Maths ൽ 50% മാർക്ക്.",
+      "Manglish": "Admission KEAM counselling vazhi. Eligibility: +2 il Physics, Chemistry, Maths il 50% marks venam."
     }
   },
   {
     "id": 5,
-    "tags": ["fees", "fee structure", "tuition"],
+    "tags": ["fees", "fee structure", "tuition", "ഫീസ്", "ഫീസ് എത്ര", "പണം", "ചെലവ്"],
     "answer_facts": {
       "Government Seat Fees": "Approximately ₹45,000 per year",
       "Management Seat Fees": "Approximately ₹75,000 per year",
@@ -70,12 +77,14 @@ const COLLEGE_FAQ_DATA = [
       "Other Fees": "Caution deposit (refundable): ₹5,000, Library fee: ₹1,500, Exam fee: ₹2,000 per semester",
       "Hostel Fees": "Approximately ₹35,000 per year including food",
       "Payment Mode": "Online payment available through college portal",
-      "Scholarships": "Merit scholarships, SC/ST scholarships, EWS scholarships available"
+      "Scholarships": "Merit scholarships, SC/ST scholarships, EWS scholarships available",
+      "Malayalam": "ഗവൺമെന്റ് സീറ്റ് ഫീസ്: ₹45,000 പ്രതിവർഷം. മാനേജ്മെന്റ് സീറ്റ്: ₹75,000. ഹോസ്റ്റൽ: ₹35,000.",
+      "Manglish": "Government seat fee: ₹45,000 per year. Management seat: ₹75,000. Hostel: ₹35,000."
     }
   },
   {
     "id": 6,
-    "tags": ["hostel", "accommodation", "boarding"],
+    "tags": ["hostel", "accommodation", "boarding", "ഹോസ്റ്റൽ", "താമസം", "ബോയ്സ് ഹോസ്റ്റൽ", "ഗേൾസ് ഹോസ്റ്റൽ", "ഷഹാനാസ് ഹോസ്റ്റൽ"],
     "answer_facts": {
       "Boys Hostel": "Separate hostel blocks with capacity for 300 students",
       "Girls Hostel": "Secure hostel with capacity for 200 students, known as Shahanas Hostel",
@@ -84,12 +93,14 @@ const COLLEGE_FAQ_DATA = [
       "Mess": "Separate vegetarian and non-vegetarian mess with North & South Indian food",
       "Security": "24/7 security, CCTV surveillance, warden supervision",
       "Medical": "First aid facility, tie-up with nearby hospitals",
-      "Visiting Hours": "Parents can visit on weekends with prior permission"
+      "Visiting Hours": "Parents can visit on weekends with prior permission",
+      "Malayalam": "ബോയ്സ് ഹോസ്റ്റൽ: 300 പേർക്ക്. ഗേൾസ് ഹോസ്റ്റൽ (ഷഹാനാസ്): 200 പേർക്ക്. Wi-Fi, gym, mess ഉണ്ട്.",
+      "Manglish": "Boys hostel: 300 students ku. Girls hostel (Shahanas): 200 students ku. Wi-Fi, gym, mess und."
     }
   },
   {
     "id": 7,
-    "tags": ["placement", "jobs", "career", "recruitment"],
+    "tags": ["placement", "jobs", "career", "recruitment", "പ്ലേസ്മെന്റ്", "ജോലി", "കമ്പനികൾ", "ശമ്പളം", "പാക്കേജ്"],
     "answer_facts": {
       "Placement Cell": "Dedicated Training & Placement Cell with full-time coordinator",
       "Companies Visited": "TCS, Infosys, Wipro, Tech Mahindra, Cognizant, Bosch, BYJU'S, etc.",
@@ -98,12 +109,14 @@ const COLLEGE_FAQ_DATA = [
       "Placement Rate": "85% of eligible students placed",
       "Training Programs": "Aptitude training, technical workshops, mock interviews, GD sessions",
       "Internships": "Summer internships with stipend in reputed companies",
+      "Malayalam": "ഏറ്റവും ഉയർന്ന പാക്കേജ്: ₹12 LPA. ശരാശരി: ₹4.5 LPA. 85% വിദ്യാർത്ഥികൾക്ക് പ്ലേസ്മെന്റ്. TCS, Infosys, Wipro വരുന്നു.",
+      "Manglish": "Highest package: ₹12 LPA. Average: ₹4.5 LPA. 85% students ku placement kittum. TCS, Infosys, Wipro okke varum.",
       "Higher Studies": "Guidance for GATE, CAT, GRE, TOEFL exams"
     }
   },
   {
     "id": 8,
-    "tags": ["location", "directions", "map"],
+    "tags": ["location", "directions", "map", "സ്ഥലം", "വഴി", "എവിടെ", "എങ്ങനെ എത്തും", "കാംപസ്"],
     "answer_facts": {
       "Full Name": "Lal Bahadur Shastri College of Engineering, Kasaragod",
       "Address": "LBS College of Engineering, Muliyar, Kasaragod District, Kerala - 671542",
@@ -112,12 +125,14 @@ const COLLEGE_FAQ_DATA = [
       "Nearest Airport": "Mangaluru Airport (Mangalore International Airport)",
       "Nearest Railway": "Kasaragod Railway Station",
       "Tourist Attractions Nearby": "Bekal Fort, Madhur temple, Ananthapuri temple",
-      "GPS Coordinates": "12.5960° N, 75.0300° E"
+      "GPS Coordinates": "12.5960° N, 75.0300° E",
+      "Malayalam": "കോളേജ് മുളിയാർ, കാസർഗോഡ് നിന്ന് 12 km ദൂരെ. 52 ഏക്കർ ക്യാംപസ്. അടുത്തുള്ള റയിൽവേ സ്റ്റേഷൻ: കാസർഗോഡ്.",
+      "Manglish": "College Muliyar il aanu, Kasaragod ninnu 12 km doore. 52 acre campus. Nearest railway station: Kasaragod."
     }
   },
   {
     "id": 9,
-    "tags": ["timings", "hours", "schedule"],
+    "tags": ["timings", "hours", "schedule", "സമയം", "എപ്പോൾ തുറക്കും", "ക്ലാസ് സമയം", "ഓഫീസ് സമയം"],
     "answer_facts": {
       "College Hours": "9:00 AM to 4:30 PM (Monday to Friday)",
       "Office Hours": "9:00 AM to 5:00 PM (Monday to Friday), 9:00 AM to 1:00 PM (Saturday)",
@@ -125,12 +140,14 @@ const COLLEGE_FAQ_DATA = [
       "Library Hours": "8:30 AM to 8:00 PM (Weekdays), 8:30 AM to 5:00 PM (Saturday), 10:00 AM to 4:00 PM (Sunday)",
       "Computer Center": "8:30 AM to 8:00 PM (All days)",
       "Holidays": "Follows Kerala Government and University holidays",
-      "Examination Period": "Special timings during university exams"
+      "Examination Period": "Special timings during university exams",
+      "Malayalam": "കോളേജ് സമയം: 9:00 AM - 4:30 PM (തിങ്കൾ-വെള്ളി). ഓഫീസ്: 9:00 AM - 5:00 PM. ലൈബ്രറി: 8:30 AM - 8:00 PM.",
+      "Manglish": "College timing: 9:00 AM - 4:30 PM (Mon-Fri). Office: 9:00 AM - 5:00 PM. Library: 8:30 AM - 8:00 PM."
     }
   },
   {
     "id": 10,
-    "tags": ["sports", "games", "gym"],
+    "tags": ["sports", "games", "gym", "സ്പോർട്സ്", "കളികൾ", "ജിം", "ക്രിക്കറ്റ്", "ഫുട്ബോൾ"],
     "answer_facts": {
       "Main Stadium": "College main stadium on campus",
       "Multi-sports Area": "Multi-sports play space available",
@@ -139,12 +156,14 @@ const COLLEGE_FAQ_DATA = [
       "Gymnasium": "Well-equipped gym with trainer",
       "Sports Offered": "Cricket, football, basketball, volleyball, badminton, table tennis, chess, carrom",
       "Annual Sports": "Inter-collegiate tournaments, annual sports meet",
-      "Coaching": "Professional coaching available for major sports"
+      "Coaching": "Professional coaching available for major sports",
+      "Malayalam": "സ്പോർട്സ്: ക്രിക്കറ്റ്, ഫുട്ബോൾ, വോളിബോൾ, ബാഡ്മിന്റൺ. ജിം, സ്റ്റേഡിയം, ഇൻഡോർ സ്റ്റേഡിയം ഉണ്ട്.",
+      "Manglish": "Sports: cricket, football, volleyball, badminton okke und. Gym, stadium, indoor stadium und."
     }
   },
   {
     "id": 11,
-    "tags": ["labs", "laboratories", "facilities"],
+    "tags": ["labs", "laboratories", "facilities", "ലാബ്", "ലാബോറട്ടറി", "കംപ്യൂട്ടർ ലാബ്"],
     "answer_facts": {
       "Computer Labs": "8 computer labs with 400+ systems, high-speed internet",
       "Department Labs": "Separate labs for each engineering department",
@@ -153,7 +172,9 @@ const COLLEGE_FAQ_DATA = [
       "Software": "Licensed software: MATLAB, AutoCAD, ANSYS, Oracle, etc.",
       "Timings": "8:30 AM to 8:00 PM (All days including weekends during project work)",
       "Research Centers": "Mechanical Engineering and Computer Science & Engineering recognized as research centres",
-      "Technicians": "Qualified lab technicians and assistants"
+      "Technicians": "Qualified lab technicians and assistants",
+      "Malayalam": "8 കംപ്യൂട്ടർ ലാബുകൾ, 400+ സിസ്റ്റംസ്. എല്ലാ ഡിപ്പാർട്ട്മെന്റുകളിലും പ്രത്യേക ലാബുകൾ.",
+      "Manglish": "8 computer labs, 400+ systems. Ella departments ilum separate labs und."
     }
   },
   {
@@ -318,7 +339,7 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 25,
-    "tags": ["principal", "admin", "head", "authority"],
+    "tags": ["principal", "admin", "head", "authority", "പ്രിൻസിപ്പൽ", "മേധാവി", "തലവൻ", "പ്രിൻസിപ്പൽ ആരാണ്"],
     "answer_facts": {
       "Name": "Dr. Mohammad Shekoor T",
       "Designation": "Principal",
@@ -326,7 +347,9 @@ const COLLEGE_FAQ_DATA = [
       "Email": "principal@lbscek.ac.in",
       "Phone": "04994-250290",
       "Qualifications": "Ph.D. from NIT Surathkal",
-      "Role": "Head of the Institution"
+      "Role": "Head of the Institution",
+      "Malayalam": "പ്രിൻസിപ്പൽ: ഡോ. മൊഹമ്മദ് ഷെക്കൂർ ടി. ഫോൺ: 04994-250290. ഇമെയിൽ: principal@lbscek.ac.in. മെക്കാനിക്കൽ എഞ്ചിനീയറിംഗ് വിഭാഗം.",
+      "Manglish": "Principal: Dr. Mohammad Shekoor T aanu. Phone: 04994-250290. Email: principal@lbscek.ac.in. Mechanical Engineering department il ninnu."
     }
   },
   {
@@ -647,16 +670,20 @@ const COLLEGE_FAQ_DATA = [
   },
   {
     "id": 59,
-    "tags": ["cse faculty", "computer science faculty", "cse teachers", "cse professors", "praveen kumar", "vinodu george", "manoj kumar g", "anver", "jayalekshmi", "sulphikar", "rahul c", "hod cse"],
+    "tags": ["cse faculty", "computer science faculty", "cse teachers", "cse professors", "praveen kumar", "vinodu george", "manoj kumar g", "anver", "jayalekshmi", "sulphikar", "rahul c", "hod cse", "dean", "academic dean", "അക്കാദമിക് ഡീൻ", "ഡീൻ", "മേധാവി", "കമ്പ്യൂട്ടർ സയൻസ് മേധാവി", "cse hod", "cse head", "department head"],
     "answer_facts": {
-      "Dean (Academic) & Professor": "Dr. Praveen Kumar K",
-      "Dean (Student Affairs) & Professor": "Dr. Vinodu George",
-      "Professor & HOD": "Dr. Manoj Kumar G",
-      "Professor & HOD (IT / CSE)": "Dr. Anver S R",
+      "UG Dean (Academic)": "Dr. Praveen Kumar K (Professor, CSE Department). Mobile: 9447375156, Email: praveenkodoth@lbscek.ac.in",
+      "UG Dean (Student Affairs)": "Dr. Vinodu George (Professor, CSE Department). Mobile: 9447386534, Email: vinodu@lbscek.ac.in",
+      "CSE Department HOD": "Dr. Manoj Kumar G (Professor). Mobile: 8547458075, Email: manojkumar@lbscek.ac.in",
+      "Professor & HOD (IT)": "Dr. Anver S R",
       "Professor": "Dr. Jayalekshmi S",
       "Associate Professors": "Dr. Sulphikar A, Dr. Rahul C",
       "Assistant Professors": "Prof. Binoy D M Panikar, Prof. Safarunisa K M, Prof. Rajesh Kumar P M, Prof. Reema K V, Prof. Nishy Reshmi S, Prof. Lijin Das S, Prof. Krishnaprasad P K, Dr. Sarith Divakar M, Prof. Indu K B, Prof. Baby Sunitha V P, Prof. Fathimath Sameera M A, Prof. Vengayil Nayana Murali, Prof. Sajina K., Prof. Prathima A, Prof. Rasna P, Prof. Navami Aravind A, Prof. Geetha A V, Prof. Arathi S S, Prof. Sandra Mercelin",
-      "Total CSE Faculty": "26 faculty members"
+      "Total CSE Faculty": "26 faculty members",
+      "Malayalam_Dean": "അക്കാദമിക് ഡീൻ: ഡോ. പ്രവീൺ കുമാർ കെ (CSE പ്രൊഫസർ). ഫോൺ: 9447375156",
+      "Malayalam_HOD": "കമ്പ്യൂട്ടർ സയൻസ് വിഭാഗം മേധാവി (HOD): ഡോ. മനോജ് കുമാർ ജി (പ്രൊഫസർ). ഫോൺ: 8547458075",
+      "Manglish_Dean": "Academic Dean: Dr. Praveen Kumar K aanu. Phone: 9447375156",
+      "Manglish_HOD": "CSE Department HOD: Dr. Manoj Kumar G aanu. Phone: 8547458075"
     }
   },
   {
@@ -1005,6 +1032,29 @@ const formatFAQData = () => {
 const COLLEGE_CONTEXT = `
 You are a friendly, warm, and helpful voice assistant for LBS College of Engineering, Kasaragod, Kerala (LBSCEK).
 
+⚠️ CRITICAL DATA ACCURACY RULES - NEVER BREAK THESE:
+1. PRIMARY DATA SOURCE: Your knowledge comes from the verified college database provided below. This data is sourced from the official college website (https://lbscek.ac.in/) and official college documents.
+
+2. ZERO HALLUCINATION POLICY:
+   - ONLY answer questions using information explicitly present in the database below
+   - NEVER guess, fabricate, or make up information
+   - NEVER provide approximate values unless explicitly stated in the database
+   - If information is NOT in the database, clearly say you don't have that information
+
+3. 'I DON'T KNOW' RESPONSES - USE WHEN NEEDED:
+   - English: 'I don't have that specific information in my database. I recommend contacting the college office at +91-4994-256300 or visiting https://lbscek.ac.in for the most up-to-date details.'
+   - Malayalam: 'എന്റെ ഡാറ്റാബേസിൽ ആ വിവരങ്ങൾ ഇല്ല. ദയവായി കോളേജ് ഓഫീസിലേക്ക് വിളിക്കുക +91-4994-256300 അല്ലെങ്കിൽ https://lbscek.ac.in സന്ദർശിക്കുക.'
+   - Manglish: 'Ente database il aa information illa. College office il vilikku +91-4994-256300 or https://lbscek.ac.in visit cheyyu.'
+
+4. PREFER RECENT INFORMATION:
+   - For fees, use the 2025-26 fee structure data
+   - For faculty, use the current faculty list
+   - For timings, use the official timings from the database
+
+5. NEVER MIX OR EXTRAPOLATE:
+   - Don't combine data from different sections unless logically related
+   - Don't calculate or derive values not explicitly stated
+
 PERSONALITY & TONE:
 - Be conversational, warm, and natural - like a friendly senior student or helpful staff member
 - Use natural speech patterns with appropriate pauses
@@ -1084,7 +1134,7 @@ PRINCIPAL INFORMATION (IMPORTANT):
 - Phone: 04994-250290
 - Qualifications: Ph.D. from NIT Surathkal
 
-DETAILED COLLEGE INFORMATION:
+DETAILED COLLEGE INFORMATION (VERIFIED DATABASE):
 ${formatFAQData()}
 
 RESPONSE GUIDELINES:
@@ -1095,6 +1145,7 @@ RESPONSE GUIDELINES:
 - For navigation, offer GPS assistance
 - Use appropriate emojis sparingly (1-2 max per response)
 - NEVER sound robotic - be natural and helpful
+- If you cannot find the answer in the database above, use the 'I DON'T KNOW' response
 
 EXAMPLE NATURAL RESPONSES:
 - "The library is open from 8:30 AM to 8:00 PM on weekdays. On weekends, it's a bit shorter - 10 AM to 4 PM on Sundays. Would you like to know about the digital library access too?"
