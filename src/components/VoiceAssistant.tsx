@@ -79,27 +79,40 @@ const VoiceAssistant = () => {
     getCurrentPosition,
   } = useGeolocation();
 
-  // Detect iOS device
+  // Detect iOS device and setup persistent audio element
   useEffect(() => {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     setIsIOSDevice(isIOS);
+    console.log('iOS device detected:', isIOS);
 
     // Create persistent audio element for iOS
+    // This element stays in the DOM and is reused for all audio playback
     if (isIOS && !iosAudioRef.current) {
       const audio = document.createElement('audio');
+
+      // Critical iOS Safari attributes
       audio.setAttribute('playsinline', 'true');
       audio.setAttribute('webkit-playsinline', 'true');
+      audio.setAttribute('x-webkit-airplay', 'allow');
+      audio.setAttribute('preload', 'auto');
+
+      // Audio settings
       audio.preload = 'auto';
       audio.volume = 1.0;
-      // Add to DOM but hidden - iOS sometimes needs this
-      audio.style.display = 'none';
+      audio.muted = false;
+
+      // Add to DOM but hidden - iOS Safari requires elements to be in DOM
+      audio.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;';
       document.body.appendChild(audio);
       iosAudioRef.current = audio;
+
+      console.log('iOS: Persistent audio element created');
     }
 
     return () => {
       if (iosAudioRef.current) {
+        iosAudioRef.current.pause();
         iosAudioRef.current.remove();
         iosAudioRef.current = null;
       }
@@ -119,24 +132,43 @@ const VoiceAssistant = () => {
         const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
         if (AudioContextClass) {
           audioContextRef.current = new AudioContextClass();
+          console.log('AudioContext created');
         }
       }
 
       if (audioContextRef.current?.state === 'suspended') {
-        audioContextRef.current.resume();
+        audioContextRef.current.resume().then(() => {
+          console.log('AudioContext resumed');
+        });
       }
 
       // iOS audio unlock - play a silent sound to unlock audio playback
+      // This must happen during a user gesture (tap/click)
       if (isIOSDevice && !audioUnlocked && iosAudioRef.current) {
-        // Create a tiny silent audio to unlock
+        console.log('iOS: Attempting audio unlock...');
         const silentAudio = iosAudioRef.current;
+
+        // Use a minimal valid WAV file (silence)
+        // This is a 44-byte WAV header + 2 bytes of silence
         silentAudio.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-        silentAudio.play().then(() => {
-          setAudioUnlocked(true);
-          console.log('iOS audio unlocked successfully');
-        }).catch((e) => {
-          console.log('iOS audio unlock pending...', e);
-        });
+
+        // First load the audio
+        silentAudio.load();
+
+        // Then try to play after a brief delay
+        setTimeout(() => {
+          silentAudio.play()
+            .then(() => {
+              setAudioUnlocked(true);
+              console.log('iOS: Audio unlocked successfully!');
+              // Immediately pause after unlocking
+              silentAudio.pause();
+              silentAudio.currentTime = 0;
+            })
+            .catch((e) => {
+              console.log('iOS: Audio unlock attempt failed, will retry on next interaction:', e);
+            });
+        }, 50);
       }
     } catch (e) {
       console.log('AudioContext init error:', e);
@@ -154,6 +186,7 @@ const VoiceAssistant = () => {
         iosAudioRef.current.onended = null;
         iosAudioRef.current.onerror = null;
         iosAudioRef.current.oncanplaythrough = null;
+        iosAudioRef.current.onloadeddata = null;
       } catch (e) {
         console.log('iOS audio cleanup error:', e);
       }
@@ -240,7 +273,7 @@ const VoiceAssistant = () => {
     }
   }, [toast, isIOSDevice]);
 
-  // Play audio using Sarvam AI TTS - iOS compatible version
+  // Play audio using Sarvam AI TTS - iOS compatible version using data URLs
   const playAudio = useCallback(async (text: string, messageId: string, language?: "malayalam" | "manglish" | "english", isAutoPlay = false) => {
     // Prevent multiple simultaneous plays
     if (isAudioPlayingRef.current && audioRef.current) {
@@ -273,14 +306,30 @@ const VoiceAssistant = () => {
         throw new Error("No audio data received");
       }
 
-      // Convert base64 to blob - Sarvam returns WAV audio
-      const binaryString = atob(data.audioContent);
-      const bytes = new Uint8Array(binaryString.length);
-      for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
+      // For iOS: Use data URL instead of blob URL - much more reliable on iOS Safari
+      // Blob URLs have known issues on iOS Safari
+      const audioDataUrl = `data:audio/wav;base64,${data.audioContent}`;
+
+      // Also create blob URL as fallback for non-iOS
+      let audioUrl: string;
+      let usingDataUrl = false;
+
+      if (isIOSDevice) {
+        // iOS: Use data URL directly - more reliable
+        audioUrl = audioDataUrl;
+        usingDataUrl = true;
+        console.log('iOS: Using data URL for audio');
+      } else {
+        // Non-iOS: Use blob URL (more memory efficient)
+        const binaryString = atob(data.audioContent);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], { type: 'audio/wav' });
+        audioUrl = URL.createObjectURL(blob);
+        console.log('Non-iOS: Using blob URL for audio');
       }
-      const blob = new Blob([bytes], { type: 'audio/wav' });
-      const audioUrl = URL.createObjectURL(blob);
 
       // Use the persistent iOS audio element if on iOS, otherwise create new
       let audio: HTMLAudioElement;
@@ -290,6 +339,7 @@ const VoiceAssistant = () => {
         audio.onended = null;
         audio.onerror = null;
         audio.oncanplaythrough = null;
+        audio.onloadeddata = null;
       } else {
         audio = new Audio();
         audio.preload = 'auto';
@@ -298,6 +348,8 @@ const VoiceAssistant = () => {
         audio.setAttribute('webkit-playsinline', 'true');
       }
 
+      // Set volume explicitly for iOS
+      audio.volume = 1.0;
       audioRef.current = audio;
 
       const cleanup = () => {
@@ -308,7 +360,10 @@ const VoiceAssistant = () => {
         if (!isIOSDevice) {
           audioRef.current = null;
         }
-        URL.revokeObjectURL(audioUrl);
+        // Only revoke blob URLs, not data URLs
+        if (!usingDataUrl && audioUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(audioUrl);
+        }
       };
 
       audio.onended = () => {
@@ -317,7 +372,7 @@ const VoiceAssistant = () => {
       };
 
       audio.onerror = (e) => {
-        console.error("Audio playback error:", e);
+        console.error("Audio playback error:", e, audio.error);
         cleanup();
         if (!isAutoPlay) {
           toast({
@@ -330,36 +385,46 @@ const VoiceAssistant = () => {
         }
       };
 
-      // Set source and load
+      // Set source
       audio.src = audioUrl;
 
-      // For iOS, wait for canplaythrough before attempting play
+      // Different loading strategy for iOS vs others
       if (isIOSDevice) {
+        // iOS: Use loadeddata event which is more reliable
         await new Promise<void>((resolve, reject) => {
           const timeout = setTimeout(() => {
+            console.log('iOS audio load timeout');
             reject(new Error('Audio load timeout'));
-          }, 10000);
+          }, 15000); // Longer timeout for iOS
 
-          audio.oncanplaythrough = () => {
+          const onLoaded = () => {
             clearTimeout(timeout);
+            audio.onloadeddata = null;
+            console.log('iOS: Audio loaded successfully');
             resolve();
           };
 
-          audio.onerror = () => {
+          const onError = () => {
             clearTimeout(timeout);
+            console.log('iOS: Audio load error');
             reject(new Error('Audio load error'));
           };
 
+          audio.onloadeddata = onLoaded;
+          audio.onerror = onError;
+
+          // For iOS, call load() after setting src
           audio.load();
         });
       } else {
         audio.load();
         // Small delay for non-iOS to ensure audio is ready
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 150));
       }
 
       // Try to play
       try {
+        console.log('Attempting to play audio...');
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           await playPromise;
@@ -392,7 +457,7 @@ const VoiceAssistant = () => {
           variant: "destructive",
           title: "Audio Error",
           description: isIOSDevice
-            ? "Audio failed on iOS. Please tap to try again."
+            ? "Audio failed on iOS. Please tap the play button to try again."
             : "Failed to play audio response. Please try again.",
         });
       }
