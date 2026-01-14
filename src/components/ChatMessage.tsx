@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { cn } from "@/lib/utils";
 import { User, Bot, Volume2, MapPin, ExternalLink, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,19 +13,19 @@ interface ChatMessageProps {
   locationLink?: string;
 }
 
-const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, locationName, locationLink }: ChatMessageProps) => {
+const ChatMessage = memo(({ role, content, language, onPlayAudio, isPlaying, locationName, locationLink }: ChatMessageProps) => {
   const isUser = role === "user";
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(content);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      // Silent fail for clipboard
     }
-  };
+  }, [content]);
 
   // Convert URLs in text to clickable links
   const renderContentWithLinks = (text: string) => {
@@ -182,6 +182,9 @@ const ChatMessage = ({ role, content, language, onPlayAudio, isPlaying, location
       </div>
     </div>
   );
-};
+});
+
+// Display name for React DevTools
+ChatMessage.displayName = "ChatMessage";
 
 export default ChatMessage;

@@ -4,7 +4,7 @@
 
 /* Malayalam Voice Assistant - Kerala-Inspired Design System */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500&display=swap');
 
 @layer base {
   :root {
